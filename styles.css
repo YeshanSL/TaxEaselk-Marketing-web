@@ -1,0 +1,635 @@
+/* =========================================
+   CSS VARIABLES / THEME
+   ========================================= */
+:root {
+  --primary: #DFF1F9;
+  --secondary: #FFFFFF;
+  --text: #161950;
+  --text-muted: #6B7280;
+  --accent: #0EA5E9;
+  --border: #E5E7EB;
+  --soft: #F8FAFC;
+}
+
+/* =========================================
+   BASE
+   ========================================= */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--secondary);
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+/* =========================================
+   HERO BACKGROUND & ORBS
+   ========================================= */
+.hero-bg {
+  background: radial-gradient(circle at 80% 10%, rgba(14, 165, 233, 0.08), transparent 40%),
+              radial-gradient(circle at 10% 90%, rgba(223, 241, 249, 0.6), transparent 40%),
+              #FFFFFF;
+  position: relative;
+}
+
+.grid-pattern {
+  background-image: linear-gradient(rgba(22, 25, 80, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(22, 25, 80, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 40%, transparent 100%);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: rgba(14, 165, 233, 0.15);
+  top: -100px;
+  right: -100px;
+  animation: floatOrb 12s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 300px;
+  height: 300px;
+  background: rgba(168, 85, 247, 0.08);
+  bottom: -50px;
+  left: -50px;
+  animation: floatOrb 15s ease-in-out infinite reverse;
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 40px); }
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+.btn-primary {
+  background: var(--text);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 14px rgba(22, 25, 80, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(22, 25, 80, 0.25);
+  background: #11142e;
+}
+
+/* Shimmer effect on hover */
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--soft);
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   FLOATING PILL NAVIGATION
+   ========================================= */
+.nav-pill-container {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: calc(100% - 2rem);
+  max-width: 900px;
+  transition: top 0.4s ease;
+}
+
+.nav-pill {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 9999px;
+  box-shadow: 0 10px 30px -10px rgba(22, 25, 80, 0.1), 0 4px 6px -4px rgba(22, 25, 80, 0.05);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px 8px 24px;
+}
+
+.nav-pill.scrolled {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 20px 40px -15px rgba(22, 25, 80, 0.15);
+  top: 0.75rem;
+}
+
+.nav-links-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(22, 25, 80, 0.03);
+  border-radius: 9999px;
+  padding: 4px;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.nav-link-icon {
+  width: 0;
+  overflow: hidden;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1), margin-right 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text);
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link:hover .nav-link-icon,
+.nav-link.active .nav-link-icon {
+  width: 14px;
+  margin-right: 8px;
+  opacity: 1;
+}
+
+/* =========================================
+   MOBILE MENU OVERLAY
+   ========================================= */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.mobile-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-link {
+  color: var(--text);
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-overlay.open .mobile-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   3D MOCKUP
+   ========================================= */
+.mock-wrapper {
+  animation: bob 6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.mock-container {
+  perspective: 2000px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.mock-3d {
+  transform: rotateY(-12deg) rotateX(6deg);
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+.browser-window {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 50px 100px -20px rgba(31, 41, 55, 0.25),
+              0 30px 60px -30px rgba(31, 41, 55, 0.3),
+              0 0 0 1px rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+}
+
+.floating-card {
+  position: absolute;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #F1F5F9;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 20;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+}
+
+/* Mockup Internals */
+.mock-sidebar { background: #161950; }
+.mock-main { background: #F8FAFC; }
+.mock-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 8px; }
+
+.chart-bar-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 100%;
+}
+
+.mock-chart-bar {
+  width: 100%;
+  background: linear-gradient(180deg, #38BDF8, #0EA5E9);
+  border-radius: 4px 4px 0 0;
+  height: 0%;
+  transition: height 1s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.3);
+}
+
+/* =========================================
+   SCROLL REVEAL & STAGGER ANIMATIONS
+   ========================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   BENTO GRID & SPOTLIGHT EFFECT
+   ========================================= */
+.bento-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Spotlight effect on hover */
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(14, 165, 233, 0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
+}
+
+.bento-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================
+   MARQUEE LOGOS
+   ========================================= */
+.marquee-container {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* =========================================
+   HOW IT WORKS — PROGRESS LINE
+   ========================================= */
+.step-container {
+  position: relative;
+}
+
+.step-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #E5E7EB;
+}
+
+.step-progress-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 0%;
+  background: var(--accent);
+  transition: height 0.1s linear;
+}
+
+/* =========================================
+   FAQ ACCORDION
+   ========================================= */
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-q {
+  cursor: pointer;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.faq-icon {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  color: #9CA3AF;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  color: var(--text);
+}
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, color 0.3s ease;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.faq-item.open .faq-a {
+  max-height: 300px;
+  padding-bottom: 20px;
+}
+
+/* =========================================
+   PRICING TOGGLE
+   ========================================= */
+.toggle-bg {
+  width: 48px;
+  height: 26px;
+  background: #E5E7EB;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-bg.active {
+  background: var(--text);
+}
+
+.toggle-bg.active .toggle-knob {
+  transform: translateX(22px);
+}
+
+/* =========================================
+   STATS
+   ========================================= */
+.stat-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================
+   CTA BANNER
+   ========================================= */
+.cta-banner {
+  background: #161950;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.3), transparent 40%),
+                    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.2), transparent 40%);
+  animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* =========================================
+   SCROLL PROGRESS BAR
+   ========================================= */
+#progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  width: 0;
+  z-index: 101;
+  transition: width 0.1s;
+}
+
+/* =========================================
+   UTILITY CLASSES
+   ========================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #F3F4F6;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #E5E7EB;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.logo-item {
+  color: #9CA3AF;
+  font-weight: 700;
+  font-size: 20px;
+  transition: color 0.2s;
+  flex-shrink: 0;
+}
+
+.logo-item:hover {
+  color: #374151;
+}
+
+/* =========================================
+   TYPING CURSOR
+   ========================================= */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 12px;
+  background: var(--text);
+  margin-left: 2px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* =========================================
+   SCAN BAR
+   ========================================= */
+.scan-bar {
+  height: 4px;
+  background: #1E293B;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.scan-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0%;
+  background: #0EA5E9;
+  border-radius: 2px;
+  transition: width 2s ease-in-out;
+}
+
+.scan-bar.active::after {
+  width: 100%;
+}

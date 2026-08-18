@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaxEaseLK</title>
+  <meta name="description" content="TaxEaseLK is the trilingual, Automated tax filing platform built for Sri Lankan businesses." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (utility classes) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div id="progress"></div>
+
+<!-- =========================================
+     FLOATING PILL NAVIGATION
+     ========================================= -->
+<div class="nav-pill-container" id="navContainer">
+  <nav class="nav-pill" id="navPill">
+    <!-- Logo -->
+   <a href="#" class="flex items-center gap-2.5 pl-2">
+  <!-- Replace 'weblogo.png' with your actual image file name/path -->
+  <img src="weblogo.png" alt="TaxEaseLK Logo" class="h-8 w-auto" />
+  <span class="font-display font-bold text-base hidden sm:block">TaxEase<span style="color:var(--accent);">LK</span></span>
+</a>
+
+    <!-- Desktop Nav Links -->
+    <div class="hidden md:flex nav-links-wrapper">
+      <a href="#features" class="nav-link">
+        <span class="nav-link-icon"><i class="fa-solid fa-cube"></i></span>
+        Features
+      </a>
+      <a href="#how" class="nav-link">
+        <span class="nav-link-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+        How it Works
+      </a>
+      <a href="#pricing" class="nav-link">
+        <span class="nav-link-icon"><i class="fa-solid fa-tag"></i></span>
+        Pricing
+      </a>
+      <a href="#faq" class="nav-link">
+        <span class="nav-link-icon"><i class="fa-solid fa-circle-question"></i></span>
+        FAQ
+      </a>
+    </div>
+
+    <!-- CTA & Mobile Menu Button -->
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden md:block text-sm font-medium text-gray-600 hover:text-gray-900 transition">Sign In</a>
+      <a href="#pricing" class="btn-primary text-sm hidden md:flex" style="padding:8px 18px;font-size:14px;border-radius:9999px;">
+        Get Started
+      </a>
+      <button id="menuBtn" class="md:hidden w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-md" aria-label="Toggle menu">
+        <div class="menu-icon w-5 h-4 relative" id="menuIcon">
+          <span class="absolute top-0 left-0 w-full h-0.5 bg-gray-800 transition-all duration-300"></span>
+          <span class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-800 transition-all duration-300"></span>
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transition-all duration-300"></span>
+        </div>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<!-- Mobile Full-Screen Overlay -->
+<div id="mobileOverlay" class="mobile-overlay md:hidden">
+  <button id="closeBtn" class="absolute top-8 right-8 p-2 text-gray-500"><i class="fa-solid fa-xmark text-3xl"></i></button>
+  <a href="#features" class="mobile-link">Features</a>
+  <a href="#how" class="mobile-link" style="transition-delay: 0.1s;">How it Works</a>
+  <a href="#pricing" class="mobile-link" style="transition-delay: 0.2s;">Pricing</a>
+  <a href="#faq" class="mobile-link" style="transition-delay: 0.3s;">FAQ</a>
+  <div class="mt-8 flex gap-4">
+    <a href="#" class="btn-secondary">Sign In</a>
+    <a href="#pricing" class="btn-primary">Get Started</a>
+  </div>
+</div>
+
+
+<!-- =========================================
+     HERO SECTION
+     ========================================= -->
+<section id="hero" class="hero-bg pt-40 pb-24 relative overflow-hidden">
+  <div class="absolute inset-0 grid-pattern"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+      <!-- Left: Copy -->
+      <div>
+        <div class="badge reveal">
+          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+          Automated Tax Platform
+        </div>
+        <h1 class="font-display font-extrabold mt-6 text-5xl md:text-6xl reveal" style="line-height:1.1; transition-delay: 0.1s;">
+          File business taxes<br>in <span style="color:var(--accent);">minutes,</span> not weeks.
+        </h1>
+        <p class="mt-6 text-lg text-gray-500 max-w-md reveal" style="line-height:1.6; transition-delay: 0.2s;">
+          TaxEaseLK combines a qualified human Auditor, and direct IRD submission into one workflow. Built for Sri Lankan businesses who shouldn't need to be tax experts.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4 reveal" style="transition-delay: 0.3s;">
+          <a href="#pricing" class="btn-primary">
+            Start Free Trial
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          <a href="#how" class="btn-secondary">
+            <i class="fa-regular fa-circle-play text-sm"></i>
+            Book a Demo
+          </a>
+        </div>
+
+        <div class="mt-8 flex items-center gap-6 text-sm text-gray-500 reveal" style="transition-delay: 0.4s;">
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> No credit card</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> 14-day trial</div>
+        </div>
+      </div>
+
+      <!-- Right: 3D App Mockup -->
+      <div class="relative h-[500px] hidden lg:flex items-center justify-center reveal" style="transition-delay: 0.2s;">
+        <div class="mock-wrapper">
+          <div class="mock-container" id="mockContainer">
+            <div class="mock-3d" id="mock3d">
+              <div class="browser-window">
+                <!-- Browser Chrome -->
+                <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-100 bg-gray-50">
+                  <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                  <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                  <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                  <div class="flex-1 ml-4 bg-white border border-gray-200 rounded-md py-1 px-3 text-xs text-gray-400 flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-xs text-gray-400"></i> app.taxeaselk.lk/dashboard
+                  </div>
+                </div>
+
+                <!-- App Content -->
+                <div class="flex h-[360px]">
+                  <!-- Sidebar -->
+                  <div class="w-48 mock-sidebar text-white p-4 flex flex-col">
+                    <div class="flex items-center gap-2 mb-8">
+                      <div class="w-6 h-6 rounded bg-sky-500 flex items-center justify-center">
+                        <i class="fa-solid fa-chart-pie text-white text-[10px]"></i>
+                      </div>
+                      <span class="font-semibold text-sm">TaxEaseLK</span>
+                    </div>
+                    <nav class="flex-1 space-y-1 text-xs text-gray-400">
+                      <div class="flex items-center gap-2 py-2 px-2 rounded-md bg-white/10 text-white">
+                        <i class="fa-solid fa-house w-4"></i> Dashboard
+                      </div>
+                      <div class="flex items-center gap-2 py-2 px-2">
+                        <i class="fa-solid fa-upload w-4"></i> Uploads
+                      </div>
+                      <div class="px-2 py-1">
+                        <div class="scan-bar" id="scanBar"></div>
+                        <div class="text-[9px] text-sky-300 mt-1" id="scanText">Idle...</div>
+                      </div>
+                      <div class="flex items-center gap-2 py-2 px-2 mt-2">
+                        <i class="fa-solid fa-calculator w-4"></i> Calculations
+                      </div>
+                      <div class="flex items-center gap-2 py-2 px-2">
+                        <i class="fa-solid fa-check-circle w-4"></i> Audits
+                      </div>
+                      <div class="flex items-center gap-2 py-2 px-2">
+                        <i class="fa-solid fa-file-invoice w-4"></i> IRD Filing
+                      </div>
+                    </nav>
+                    <div class="bg-sky-500/20 border border-sky-500/30 rounded-lg p-2 text-[10px] text-sky-200">
+                      <div class="font-bold mb-1">Deadline Alert</div>
+                      <div>VAT Q3 due in 12 days</div>
+                    </div>
+                  </div>
+
+                  <!-- Main Panel -->
+                  <div class="flex-1 mock-main p-5 overflow-hidden">
+                    <div class="flex justify-between items-center mb-4">
+                      <div>
+                        <div class="text-[10px] text-gray-400">Welcome back,</div>
+                        <div class="font-bold text-sm text-gray-800">Abdul Enterprises</div>
+                      </div>
+                      <div class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Compliant
+                      </div>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                      <div class="mock-card p-2">
+                        <div class="text-[10px] text-gray-400">Tax Owed</div>
+                        <div class="font-bold text-sm text-gray-800">Rs <span class="mock-stat" data-target="248" data-suffix="K">0K</span></div>
+                      </div>
+                      <div class="mock-card p-2">
+                        <div class="text-[10px] text-gray-400">Next Filing</div>
+                        <div class="font-bold text-sm text-gray-800">Nov 30</div>
+                      </div>
+                      <div class="mock-card p-2">
+                        <div class="text-[10px] text-gray-400">Filings</div>
+                        <div class="font-bold text-sm text-gray-800"><span class="mock-stat" data-target="7" data-suffix="/7">0/7</span></div>
+                      </div>
+                    </div>
+
+                    <!-- Chart -->
+                    <div class="mock-card p-3 mb-3">
+                      <div class="text-[10px] font-bold text-gray-500 mb-2">QUARTERLY TAX LIABILITY</div>
+                      <div class="chart-bar-container h-16" id="chartContainer">
+                        <div class="mock-chart-bar" data-height="40%"></div>
+                        <div class="mock-chart-bar" data-height="60%"></div>
+                        <div class="mock-chart-bar" data-height="85%"></div>
+                        <div class="mock-chart-bar" data-height="50%"></div>
+                      </div>
+                    </div>
+
+                    <!-- AI Assistant -->
+                    <div class="mock-card p-2 flex items-center gap-2">
+                      <div class="w-6 h-6 rounded bg-gray-800 flex items-center justify-center flex-shrink-0">
+                        <i class="fa-solid fa-robot text-[10px] text-sky-400"></i>
+                      </div>
+                      <div class="text-[10px] text-gray-600 flex-1">
+                        <span class="font-bold">AI:</span> <span id="typingText"></span><span class="typing-cursor"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Cards -->
+              <div class="floating-card top-[5%] -right-[10%]" id="floatCard1">
+                <div class="w-8 h-8 rounded-md bg-green-100 flex items-center justify-center">
+                  <i class="fa-solid fa-shield-check text-green-600 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-gray-800">Auditor Approved</div>
+                  <div class="text-[10px] text-gray-400">CA Sri Lanka</div>
+                </div>
+              </div>
+
+              <div class="floating-card bottom-[10%] -left-[15%]" id="floatCard2">
+                <div class="w-8 h-8 rounded-md bg-sky-100 flex items-center justify-center">
+                  <i class="fa-solid fa-paper-plane text-sky-600 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-gray-800">IRD Submitted</div>
+                  <div class="text-[10px] text-gray-400">Ref #IRD-9F2A1</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     LOGO STRIP
+     ========================================= -->
+<section class="py-12 border-t border-b" style="border-color:var(--border);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <p class="text-center text-xs font-semibold mb-8 text-gray-400 tracking-widest uppercase">
+      TaxEase.LK is
+    </p>
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <div class="logo-item">COMMING SOON</div>
+        <div class="logo-item">COMMING SOON</div>
+        <div class="logo-item">COMMING SOON</div>
+        <div class="logo-item">COMMING SOON</div>
+       
+        <!-- Duplicated for seamless loop -->
+      <div class="logo-item">COMMING SOON</div>
+      <div class="logo-item">COMMING SOON</div>
+      <div class="logo-item">COMMING SOON</div>
+      <div class="logo-item">COMMING SOON</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     STATS SECTION
+     ========================================= -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="text-center reveal">
+        <div class="font-display font-extrabold text-4xl stat-num" data-target="3" data-suffix="+">0</div>
+        <div class="text-sm text-gray-500 mt-2">Partnership Businesses</div>
+      </div>
+      <div class="text-center reveal" style="transition-delay: 0.1s;">
+        <div class="font-display font-extrabold text-4xl stat-num" data-target="99.9" data-suffix="%" data-decimal="1">0</div>
+        <div class="text-sm text-gray-500 mt-2">Platform uptime</div>
+      </div>
+      <div class="text-center reveal" style="transition-delay: 0.2s;">
+        <div class="font-display font-extrabold text-4xl stat-num" data-target="3" data-suffix=" langs">0</div>
+        <div class="text-sm text-gray-500 mt-2">Sinhala, Tamil, English</div>
+      </div>
+      <div class="text-center reveal" style="transition-delay: 0.3s;">
+        <div class="font-display font-extrabold text-4xl stat-num" data-target="24" data-suffix="hr">0</div>
+        <div class="text-sm text-gray-500 mt-2">Auditor Service</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     FEATURES (BENTO GRID)
+     ========================================= -->
+<section id="features" class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-16 reveal">
+      <div class="eyebrow mb-3">Core Features</div>
+      <h2 class="font-display font-extrabold text-4xl">Everything you need to file.</h2>
+      <p class="mt-4 text-lg text-gray-500">Engineered to remove every barrier Sri Lankan business owners face today.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- AI Accountant (wide) -->
+      <div class="bento-card p-8 md:col-span-2 reveal">
+        <div class="flex flex-col md:flex-row gap-8 items-start">
+          <div class="flex-1">
+            <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center mb-5">
+              <i class="fa-solid fa-robot text-sky-600 text-xl"></i>
+            </div>
+            <h3 class="font-display font-bold text-2xl mb-2">AI</h3>
+            <p class="text-gray-500 leading-relaxed">
+            Categorizing extracted data & Creating final document
+            </p>
+          </div>
+          <div class="w-full md:w-64 bg-gray-50 rounded-xl p-4 border border-gray-100">
+            <div class="flex items-start gap-2 mb-3 text-xs">
+              <div class="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center text-white text-[10px]">U</div>
+              <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100">Ai MAke Life Easier</div>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+
+      <!-- Human Auditor Review -->
+      <div class="bento-card p-8 reveal" style="transition-delay: 0.1s;">
+        <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-5">
+          <i class="fa-solid fa-shield-check text-amber-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Human Auditor Review</h3>
+        <p class="text-gray-500 leading-relaxed">
+          Every drafted return is routed to a qualified Chartered Accountant before submission. The compliance safeguard no self-serve tool offers.
+        </p>
+      </div>
+
+      <!-- Direct IRD Submission -->
+      <div class="bento-card p-8 reveal" style="transition-delay: 0.2s;">
+        <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-5">
+          <i class="fa-solid fa-paper-plane text-green-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Direct IRD Submission</h3>
+        <p class="text-gray-500 leading-relaxed">
+          Once approved, TaxEaseLK submits your return directly to the IRD e-Services Portal. You receive a confirmation and stored copy.
+        </p>
+      </div>
+
+      <!-- Trilingual (wide) -->
+      <div class="bento-card p-8 md:col-span-2 reveal" style="transition-delay: 0.3s;">
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="flex-1">
+            <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-5">
+              <i class="fa-solid fa-language text-indigo-600 text-xl"></i>
+            </div>
+            <h3 class="font-display font-bold text-2xl mb-2">Trilingual by Default</h3>
+            <p class="text-gray-500 leading-relaxed">
+              Sinhala, Tamil, and English across web and mobile — closing the language barrier that excludes the majority of Sri Lankan business owners from self-service compliance.
+            </p>
+          </div>
+          <div class="flex gap-2 w-full md:w-auto">
+            <div class="flex-1 md:w-24 bg-gray-50 rounded-lg p-3 text-center border border-gray-100">
+              <div class="font-display font-bold text-sm text-gray-800">සිංහල</div>
+              <div class="text-[10px] text-gray-400 mt-1">Sinhala</div>
+            </div>
+            <div class="flex-1 md:w-24 bg-gray-50 rounded-lg p-3 text-center border border-gray-100">
+              <div class="font-display font-bold text-sm text-gray-800">தமிழ்</div>
+              <div class="text-[10px] text-gray-400 mt-1">Tamil</div>
+            </div>
+            <div class="flex-1 md:w-24 bg-gray-800 rounded-lg p-3 text-center">
+              <div class="font-display font-bold text-sm text-white">English</div>
+              <div class="text-[10px] text-gray-400 mt-1">English</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Taxes, One Platform -->
+      <div class="bento-card p-8 reveal" style="transition-delay: 0.4s;">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-5">
+          <i class="fa-solid fa-layer-group text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Tax Engine</h3>
+        <p class="text-gray-500 leading-relaxed">
+          Calculate your vat with our tax calculator and get idea about your anualy tax in seconds.
+        </p>
+      </div>
+
+      <!-- Deadlines & Penalties -->
+      <div class="bento-card p-8 reveal" style="transition-delay: 0.5s;">
+        <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center mb-5">
+          <i class="fa-solid fa-bell text-red-600 text-xl"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Deadlines & Penalties</h3>
+        <p class="text-gray-500 leading-relaxed">
+          Never miss November 30 again. Push notifications and penalty calculators keep you ahead of every obligation.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     HOW IT WORKS
+     ========================================= -->
+<section id="how" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-16 reveal">
+      <div class="eyebrow mb-3">How It Works</div>
+      <h2 class="font-display font-extrabold text-4xl">Six steps. One compliant filing.</h2>
+      <p class="mt-4 text-lg text-gray-500">From onboarding to IRD acknowledgment — typically under 24 hours.</p>
+    </div>
+
+    <div class="relative">
+      <!-- Scroll-driven progress line -->
+      <div id="stepProgressLine" class="absolute left-0 top-0 w-0.5 h-0 bg-sky-500 hidden md:block" style="margin-left: 1rem;"></div>
+
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
+        <div class="step-card reveal md:pr-8">
+          <div class="flex items-center gap-4 mb-3 relative">
+            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">01</div>
+            <h3 class="font-display font-bold text-lg">Onboarding</h3>
+          </div>
+          <p class="text-gray-500 text-sm md:ml-14">Register, pick your language, complete a guided profile — industry, VAT/SSCL status, financial year.</p>
+        </div>
+
+        <div class="step-card reveal md:pl-8" style="transition-delay: 0.1s;">
+          <div class="flex items-center gap-4 mb-3 relative">
+            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">02</div>
+            <h3 class="font-display font-bold text-lg">Document Upload</h3>
+          </div>
+          <p class="text-gray-500 text-sm md:ml-14">Upload income statements, T10s, VAT returns. OCR extracts the figures automatically.</p>
+        </div>
+
+        <div class="step-card reveal md:pr-8" style="transition-delay: 0.2s;">
+          <div class="flex items-center gap-4 mb-3 relative">
+            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">03</div>
+            <h3 class="font-display font-bold text-lg">Tax Calculation</h3>
+          </div>
+          <p class="text-gray-500 text-sm md:ml-14">Calculates using current IRD rates, and prepares a draft return.</p>
+        </div>
+
+        <div class="step-card reveal md:pl-8" style="transition-delay: 0.3s;">
+          <div class="flex items-center gap-4 mb-3 relative">
+            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">04</div>
+            <h3 class="font-display font-bold text-lg">Auditor Review</h3>
+          </div>
+          <p class="text-gray-500 text-sm md:ml-14">A Chartered Accountant reviews calculations, flags anomalies, and approves or requests corrections.</p>
+        </div>
+
+        <div class="step-card reveal md:pr-8" style="transition-delay: 0.4s;">
+          <div class="flex items-center gap-4 mb-3 relative">
+            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">05</div>
+            <h3 class="font-display font-bold text-lg">Owner Confirmation</h3>
+          </div>
+          <p class="text-gray-500 text-sm md:ml-14">You receive a plain-language breakdown of tax owed, deadlines, and penalties — in your language.</p>
+        </div>
+
+        <div class="step-card reveal md:pl-8" style="transition-delay: 0.5s;">
+          <div class="flex items-center gap-4 mb-3 relative">
+            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">06</div>
+            <h3 class="font-display font-bold text-lg">IRD Submission</h3>
+          </div>
+          <p class="text-gray-500 text-sm md:ml-14">TaxEaseLK submits to the IRD Portal. You get a confirmation, reference number, and stored receipt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     TESTIMONIALS
+     ========================================= -->
+<section class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-16 reveal">
+      <div class="eyebrow mb-3">Social Proof</div>
+      <h2 class="font-display font-extrabold text-4xl">Loved by business owners.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-xl border border-gray-200 reveal hover:shadow-lg transition-shadow">
+        <div class="flex gap-1 mb-4 text-amber-400">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          "I run a garment factory in Biyagama and never understood VAT. TaxEaseLK explained everything in Sinhala, the AI drafted the return, and an auditor approved it before lunch."
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center font-bold text-sky-600">SP</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-800">Saman Priyantha</div>
+            <div class="text-xs text-gray-500">Owner, Priyantha Garments</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl border border-gray-200 reveal hover:shadow-lg transition-shadow" style="transition-delay: 0.1s;">
+        <div class="flex gap-1 mb-4 text-amber-400">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          "As a Tamil-speaking entrepreneur in Jaffna, I always relied on a Colombo accountant. Now I file myself — in my language — with a real auditor reviewing behind the scenes."
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center font-bold text-amber-600">KM</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-800">Kanagasabai Murugan</div>
+            <div class="text-xs text-gray-500">Founder, Jaffna Foods</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl border border-gray-200 reveal hover:shadow-lg transition-shadow" style="transition-delay: 0.2s;">
+        <div class="flex gap-1 mb-4 text-amber-400">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="text-gray-700 leading-relaxed mb-6">
+          "I'm on the auditor panel. TaxEaseLK routes me clean, AI-prepared returns — I focus on review, not data entry. It's added 40% to my monthly practice revenue."
+        </p>
+        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+          <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center font-bold text-white">TP</div>
+          <div>
+            <div class="font-semibold text-sm text-gray-800">Tharindu Perera</div>
+            <div class="text-xs text-gray-500">Chartered Accountant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     PRICING
+     ========================================= -->
+<section id="pricing" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto text-center mb-12 reveal">
+      <div class="eyebrow mb-3">Pricing</div>
+      <h2 class="font-display font-extrabold text-4xl">Simple, transparent pricing.</h2>
+      <p class="mt-4 text-lg text-gray-500">Start free. Upgrade when your business needs it. Cancel anytime.</p>
+
+      <!-- User / Auditor Toggle -->
+      <div class="inline-flex items-center gap-4 mt-8 p-1 bg-gray-100 rounded-lg">
+        <button id="userBtn" class="px-4 py-1.5 rounded-md text-sm font-medium bg-white shadow-sm text-gray-900 transition-all">Users</button>
+        <button id="auditorBtn" class="px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 transition-all">Auditor</button>
+      </div>
+    </div>
+
+    <!-- USER PLANS (4 Cards) -->
+    <div id="userPlans" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Free -->
+      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2">
+        <div class="text-sm font-bold uppercase tracking-wide text-gray-400">Free</div>
+        <div class="font-display font-extrabold text-4xl mt-2">Rs 0</div>
+        <p class="text-xs text-gray-500 mt-1">forever</p>
+        <p class="text-sm text-gray-500 mt-4 mb-6">For individuals & Testing.</p>
+        <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Basic features</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>1 Upload</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Watermark</li>
+        </ul>
+        <a href="#" class="btn-secondary w-full justify-center">Buy Now
+        </a>
+      </div>
+
+      <!-- Starter -->
+      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2" style="transition-delay: 0.1s;">
+        <div class="text-sm font-bold uppercase tracking-wide text-sky-600">Starter</div>
+        <div class="font-display font-extrabold text-4xl mt-2">Rs 15,000</div>
+        <p class="text-xs text-gray-500 mt-1">per Annualy</p>
+        <p class="text-sm text-gray-500 mt-4 mb-6">For small businesses</p>
+        <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>5GB storage</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>3 Upload</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Email support</li>
+        </ul>
+        <a href="#" class="btn-secondary w-full justify-center">Buy Now</a>
+      </div>
+
+      <!-- Business (Popular) -->
+      <div class="p-8 flex flex-col reveal bg-gray-900 text-white rounded-2xl relative shadow-2xl lg:scale-105 lg:-translate-y-2" style="transition-delay: 0.2s;">
+        <div class="absolute top-0 right-0 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-2xl">POPULAR</div>
+        <div class="text-sm font-bold uppercase tracking-wide text-sky-400">Business</div>
+        <div class="font-display font-extrabold text-4xl mt-2">Rs 30,000</div>
+        <p class="text-xs text-gray-400 mt-1">per Annualy</p>
+        <p class="text-sm text-gray-400 mt-4 mb-6">For SMEs </p>
+        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Everything in Starter</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Submission history</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>20GB storage</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Priority Support</li>
+        </ul>
+        <a href="#" class="btn-primary w-full justify-center bg-white text-gray-900 hover:bg-gray-100">Buy Now</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2" style="transition-delay: 0.3s;">
+        <div class="text-sm font-bold uppercase tracking-wide text-gray-400">Enterprise</div>
+        <div class="font-display font-extrabold text-4xl mt-2">Rs 60,000</div>
+        <p class="text-xs text-gray-400 mt-1">per Annualy</p>
+        <p class="text-sm text-gray-400 mt-4 mb-6">For Large Pvt Ltd.</p>
+        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Everything in Business</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Ultimated Storage</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>dedicated manager</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Customize dashboard</li>
+        </ul>
+        <a href="#" class="btn-secondary w-full justify-center">Buy Now</a>
+      </div>
+    </div>
+
+    <!-- AUDITOR PLANS (2 Cards - Hidden by default) -->
+    <div id="auditorPlans" class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto hidden">
+      <!-- Auditor Starter -->
+      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2">
+        <div class="text-sm font-bold uppercase tracking-wide text-sky-600">Free</div>
+        <div class="font-display font-extrabold text-4xl mt-2">Rs 0</div>
+        <p class="text-xs text-gray-400 mt-1">per month</p>
+        <p class="text-sm text-gray-400 mt-4 mb-6">Basic package</p>
+        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>2GB storage</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>last Month History</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Email support</li>
+        </ul>
+        <a href="#" class="btn-secondary w-full justify-center">Buy Now</a>
+      </div>
+
+      <!-- Auditor Business -->
+      <div class="p-8 flex flex-col reveal bg-gray-900 text-white rounded-2xl relative shadow-2xl lg:scale-105 lg:-translate-y-2">
+        <div class="absolute top-0 right-0 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-2xl">POPULAR</div>
+        <div class="text-sm font-bold uppercase tracking-wide text-sky-400">Audit</div>
+        <div class="font-display font-extrabold text-4xl mt-2">Rs 5,000</div>
+        <p class="text-xs text-gray-400 mt-1">per month</p>
+        <p class="text-sm text-gray-400 mt-4 mb-6">Premium package</p>
+        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Everything in free</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Unlimied History</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>20GB storage</li>
+          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Priority Support</li>
+        </ul>
+        <a href="#" class="btn-primary w-full justify-center bg-white text-gray-900 hover:bg-gray-100">Buy Now</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- JavaScript for Toggle Functionality -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const userBtn = document.getElementById('userBtn');
+    const auditorBtn = document.getElementById('auditorBtn');
+    const userPlans = document.getElementById('userPlans');
+    const auditorPlans = document.getElementById('auditorPlans');
+
+    function showUserPlans() {
+      userPlans.classList.remove('hidden');
+      auditorPlans.classList.add('hidden');
+      
+      // Update button styles
+      userBtn.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+      userBtn.classList.remove('text-gray-500');
+      
+      auditorBtn.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+      auditorBtn.classList.add('text-gray-500');
+    }
+
+    function showAuditorPlans() {
+      auditorPlans.classList.remove('hidden');
+      userPlans.classList.add('hidden');
+      
+      // Update button styles
+      auditorBtn.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+      auditorBtn.classList.remove('text-gray-500');
+      
+      userBtn.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+      userBtn.classList.add('text-gray-500');
+    }
+
+    userBtn.addEventListener('click', showUserPlans);
+    auditorBtn.addEventListener('click', showAuditorPlans);
+  });
+</script>
+
+
+<!-- =========================================
+     FAQ
+     ========================================= -->
+<section id="faq" class="py-24 bg-gray-50">
+  <div class="max-w-3xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-12 reveal">
+      <div class="eyebrow mb-3">FAQ</div>
+      <h2 class="font-display font-extrabold text-4xl">Questions, answered.</h2>
+    </div>
+
+    <div class="reveal">
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="font-semibold text-lg text-gray-800">Do I need a credit card to try TaxEaseLK?</span>
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-a">No. The Free plan and 14-day trials on paid tiers require no credit card. You only enter payment details when you decide to upgrade to a paid subscription.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="font-semibold text-lg text-gray-800">Can I cancel my subscription anytime?</span>
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-a">Yes. You can cancel anytime from your dashboard. Annual plans remain active until the end of the billing period and won't auto-renew. No hidden cancellation fees.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="font-semibold text-lg text-gray-800">How secure is my financial data?</span>
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-a">All data is encrypted in transit (TLS 1.3) and at rest (AES-256). We use JWT with OAuth 2.0 for authentication and host on SOC 2-compatible AWS infrastructure.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="font-semibold text-lg text-gray-800">Is TaxEaseLK an official IRD product?</span>
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-a">No. TaxEaseLK is a private-sector platform that submits approved returns to the IRD e-Services Portal on your behalf — the only legal submission channel.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="font-semibold text-lg text-gray-800">What tax types are supported?</span>
+          <i class="fa-solid fa-plus faq-icon"></i>
+        </div>
+        <div class="faq-a">The MVP covers Corporate Income Tax (CIT) and VAT. Phase 2 adds SSCL, WHT, and SET modules.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     FINAL CTA
+     ========================================= -->
+<section class="py-20 bg-white relative overflow-hidden">
+  <div class="orb orb-1" style="top: 20%; left: 10%; opacity: 0.4;"></div>
+  <div class="orb orb-2" style="bottom: 0; right: 10%; opacity: 0.4;"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    <div class="cta-banner p-16 text-center reveal">
+      <div class="relative z-10">
+        <h2 class="font-display font-extrabold text-4xl text-white">Stop wrestling with tax.</h2>
+        <p class="mt-4 text-lg text-gray-300 max-w-xl mx-auto">Join thousands of Sri Lankan businesses who file faster, smarter, and in their own language.</p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href="#pricing" class="btn-primary bg-white text-gray-900 hover:bg-gray-100">
+            Start Free Trial
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          <a href="#" class="btn-secondary bg-transparent text-white border-gray-600 hover:bg-gray-800">
+            Book a Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================
+     FOOTER
+     ========================================= -->
+<footer class="bg-white border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--text);">
+          </div>
+          <span class="font-display font-bold text-lg">TaxEase<span style="color:var(--accent);">LK</span></span>
+        </div>
+        <p class="text-sm text-gray-500">Automated tax filing for Sri Lankan businesses.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm text-gray-900 mb-4">Product</h4>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li><a href="#features" class="hover:text-gray-900 transition">Features</a></li>
+          <li><a href="#pricing" class="hover:text-gray-900 transition">Pricing</a></li>
+          <li><a href="#" class="hover:text-gray-900 transition">web App</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm text-gray-900 mb-4">Resources</h4>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li><a href="#" class="hover:text-gray-900 transition">Documentation</a></li>
+          <li><a href="#" class="hover:text-gray-900 transition">Help Center</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm text-gray-900 mb-4">Company</h4>
+        <ul class="space-y-2 text-sm text-gray-500">
+          <li><a href="#" class="hover:text-gray-900 transition">Terms of Service</a></li>
+          <li><a href="#" class="hover:text-gray-900 transition">Contact Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
+      <p class="text-xs text-gray-500">© 2026 TaxEaseLK. Built in Sri Lanka.</p>
+      <div class="flex gap-4 text-gray-400">
+        <a href="#" class="hover:text-gray-600 transition"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" class="hover:text-gray-600 transition"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="hover:text-gray-600 transition"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Custom JavaScript -->
+<script src="main.js"></script>
+
+</body>
+</html>
