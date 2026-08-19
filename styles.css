@@ -24,15 +24,72 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', system-ui, sans-serif;
   color: var(--text);
   background: var(--secondary);
   overflow-x: hidden;
 }
 
 .font-display {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', 'Noto Sans Tamil', sans-serif;
   letter-spacing: -0.03em;
+}
+
+/* =========================================
+   PRELOADER
+   ========================================= */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #FFFFFF;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.loader-circle {
+  width: 30px;
+  height: 30px;
+  border: 4px solid var(--primary);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 /* =========================================
@@ -109,7 +166,6 @@ body {
   background: #11142e;
 }
 
-/* Shimmer effect on hover */
 .btn-primary::before {
   content: '';
   position: absolute;
@@ -225,6 +281,21 @@ body {
   opacity: 1;
 }
 
+/* Language Toggle Button */
+.lang-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 9999px;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.lang-btn.active {
+  background: var(--text);
+  color: #fff;
+}
+
 /* =========================================
    MOBILE MENU OVERLAY
    ========================================= */
@@ -315,28 +386,21 @@ body {
   z-index: 20;
   transition: transform 0.1s ease-out;
   will-change: transform;
+  animation: floatCard 4s ease-in-out infinite;
 }
 
-/* Mockup Internals */
+#floatCard2 {
+  animation-delay: 2s;
+}
+
+@keyframes floatCard {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
 .mock-sidebar { background: #161950; }
 .mock-main { background: #F8FAFC; }
 .mock-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 8px; }
-
-.chart-bar-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 100%;
-}
-
-.mock-chart-bar {
-  width: 100%;
-  background: linear-gradient(180deg, #38BDF8, #0EA5E9);
-  border-radius: 4px 4px 0 0;
-  height: 0%;
-  transition: height 1s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 8px rgba(14, 165, 233, 0.3);
-}
 
 /* =========================================
    SCROLL REVEAL & STAGGER ANIMATIONS
@@ -344,7 +408,7 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.in {
@@ -370,7 +434,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Spotlight effect on hover */
 .bento-card::before {
   content: '';
   position: absolute;
@@ -390,25 +453,6 @@ body {
 .bento-card > * {
   position: relative;
   z-index: 2;
-}
-
-/* =========================================
-   MARQUEE LOGOS
-   ========================================= */
-.marquee-container {
-  overflow: hidden;
-}
-
-.marquee-track {
-  display: flex;
-  gap: 4rem;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* =========================================
@@ -580,56 +624,9 @@ body {
   color: var(--accent);
 }
 
-.logo-item {
-  color: #9CA3AF;
-  font-weight: 700;
-  font-size: 20px;
-  transition: color 0.2s;
-  flex-shrink: 0;
-}
-
-.logo-item:hover {
-  color: #374151;
-}
-
 /* =========================================
-   TYPING CURSOR
+   FORM STYLES
    ========================================= */
-.typing-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 12px;
-  background: var(--text);
-  margin-left: 2px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-/* =========================================
-   SCAN BAR
-   ========================================= */
-.scan-bar {
-  height: 4px;
-  background: #1E293B;
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.scan-bar::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 0%;
-  background: #0EA5E9;
-  border-radius: 2px;
-  transition: width 2s ease-in-out;
-}
-
-.scan-bar.active::after {
-  width: 100%;
+input:focus, textarea:focus {
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
 }
