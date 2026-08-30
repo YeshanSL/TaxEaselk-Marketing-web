@@ -1,739 +1,463 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="gsap-ready">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TaxEaseLK - Corporate Tax Document & Auditor Collaboration</title>
-  <meta name="description" content="A trusted workspace for collecting, organizing, checking, and reviewing the documents required for corporate tax work." />
-
-  <!-- Google Fonts (Including Sinhala & Tamil) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+Sinhala:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TaxEaseLK — Corporate Tax Document & Auditor Collaboration</title>
+<meta name="description" content="A trusted workspace for Sri Lankan Pvt Ltd companies to collect, organize, and hand off corporate tax documents to auditors — without the email chaos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237c3aed'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-weight='800' font-size='28' fill='white' text-anchor='middle'%3ETL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- Preloader -->
-<div id="preloader">
-  <div class="loader-logo">
-    <div class="loader-circle"></div>
-    <span>TaxEase<span style="color:var(--accent);">LK</span></span>
-  </div>
-  <p class="loader-text">Initializing Workspace...</p>
+<div class="grain"></div>
+
+<div class="cursor" id="cursor">
+  <svg viewBox="0 0 24 24">
+    <g>
+      <path d="M10 11V3a2 2 0 1 1 4 0v8"></path>
+      <path d="M14 11V5a2 2 0 1 1 4 0v8"></path>
+      <path d="M10 11H7a2 2 0 0 0-2 2v3a6 6 0 0 0 6 6h0a6 6 0 0 0 6-6v-2a2 2 0 0 0-2-2H14"></path>
+      <path d="M10 11v3"></path>
+    </g>
+  </svg>
 </div>
 
-<!-- Scroll Progress Bar -->
-<div id="progress"></div>
+<div class="loader" id="loader">
+  <div class="loader__mark" id="loaderMark"><div class="mark">TL</div><span>TaxEaseLK</span></div>
+</div>
 
-<!-- =========================================
-     FLOATING PILL NAVIGATION
-     ========================================= -->
-<div class="nav-pill-container" id="navContainer">
-  <nav class="nav-pill" id="navPill">
-    <a href="#" class="flex items-center gap-2.5 pl-2">
-      <img src="weblogo.png" alt="TaxEaseLK Logo" class="h-8 w-auto" onerror="this.style.display='none'"/>
-      <span class="font-display font-bold text-base hidden sm:block">TaxEase<span style="color:var(--accent);">LK</span></span>
-    </a>
+<header class="nav" id="nav">
+  <span class="nav__glass" aria-hidden="true"><i></i></span>
+  <a href="#" class="brand" data-cursor="hover"><span class="mark">TL</span>TaxEase<em>LK</em></a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#modules" data-cursor="hover" data-en="Features" data-si="විශේෂාංග" data-ta="அம்சங்கள்">Features</a>
+    <a href="#flow" data-cursor="hover" data-en="How it Works" data-si="ක්‍රියාත්මක වන ආකාරය" data-ta="எப்படி வேலை செய்கிறது">How it Works</a>
+    <a href="#pricing" data-cursor="hover" data-en="Pricing" data-si="මිල නියමය" data-ta="விலை நிர்ணயம்">Pricing</a>
+    <a href="#contact" data-cursor="hover" data-en="Contact" data-si="සම්බන්ධ වන්න" data-ta="தொடர்பு">Contact</a>
+  </nav>
+  <div class="nav__lang">
+    <button class="is-active" data-lang="en">EN</button>
+    <button data-lang="si">සිං</button>
+    <button data-lang="ta">த</button>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <span class="theme-toggle__knob">
+      <svg class="tgl-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+      </svg>
+      <svg class="tgl-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </span>
+    <span data-en="Theme" data-si="තේමාව" data-ta="தீம்">Theme</span>
+  </button>
+  <a href="#contact" class="btn btn--solid btn--sm" data-cursor="hover" data-en="Get Started" data-si="පටන් ගන්න" data-ta="தொடங்குக">Get Started</a>
+</header>
 
-    <div class="hidden md:flex nav-links-wrapper">
-      <a href="#features" class="nav-link">
-        <span class="nav-link-icon"><i class="fa-solid fa-cube"></i></span>
-        <span data-i18n="nav_features">Features</span>
-      </a>
-      <a href="#how" class="nav-link">
-        <span class="nav-link-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
-        <span data-i18n="nav_how">How it Works</span>
-      </a>
-      <a href="#pricing" class="nav-link">
-        <span class="nav-link-icon"><i class="fa-solid fa-tag"></i></span>
-        <span data-i18n="nav_pricing">Pricing</span>
-      </a>
-      <a href="#contact" class="nav-link">
-        <span class="nav-link-icon"><i class="fa-solid fa-envelope"></i></span>
-        <span data-i18n="nav_contact">Contact</span>
-      </a>
+<section class="hero">
+  <div class="hero__inner">
+    <div class="tagline reveal-up"><span class="dot"></span> <span data-en="Corporate Tax Document Platform" data-si="සංස්ථාපිත බදු ලේඛන වේදිකාව" data-ta="நிறுவன வரி ஆவண தளம்">Corporate Tax Document Platform</span></div>
+    <h1 class="hero__title reveal-up">
+      <span class="line"><span data-en="Collect clearly." data-si="පැහැදිලිව එකතු කරන්න." data-ta="தெளிவாக சேகரிக்கவும்.">Collect clearly.</span></span>
+      <span class="line"><span data-en="Review confidently." data-si="විශ්වාසයෙන් සමාලෝචනය කරන්න." data-ta="நம்பிக்கையுடன் மதிப்பாய்வு செய்யவும்.">Review confidently.</span></span>
+      <span class="line"><span data-en="Move <em>forward</em>." data-si="ඉදිරියට <em>යන්න</em>." data-ta="<em>முன்னேறவும்</em>.">Move <em>forward</em>.</span></span>
+    </h1>
+    <p class="hero__lead reveal-up" data-en="A trusted workspace for Sri Lankan Pvt Ltd companies to collect, organize, and hand off corporate tax documents to auditors — without the email chaos." data-si="ශ්‍රී ලංකාවේ පෞද්ගලික සමාගම් සඳහා බදු ලේඛන එකතු කර වර්ග කර නියෝජ්‍යවරුන්ට භාර දීමට විශ්වාසදායක ස්ථානයක් — ඊමේල් අවුල්වීම් නැතිව." data-ta="இலங்கை தனியார் நிறுவனங்கள் வரி ஆவணங்களை சேகரித்து, ஒழுங்கமைத்து, தணிக்கையாளர்களிடம் ஒப்படைக்க ஒரு நம்பகமான இடம் — மின்னஞ்சல் குழப்பங்கள் இல்லாமல்.">A trusted workspace for Sri Lankan Pvt Ltd companies to collect, organize, and hand off corporate tax documents to auditors — without the email chaos.</p>
+    <div class="hero__cta reveal-up">
+      <a href="#contact" class="btn btn--solid btn--lg" data-cursor="hover" data-en="Start Free Trial" data-si="නොමිලේ අත්හදා බලන්න" data-ta="இலவச சோதனையைத் தொடங்குக">Start Free Trial</a>
+      <a href="#flow" class="btn btn--ghost btn--lg" data-cursor="hover" data-en="How it Works" data-si="ක්‍රියාත්මක වන ආකාරය" data-ta="எப்படி வேலை செய்கிறது">How it Works</a>
+    </div>
+  </div>
+  <div class="hero__stage reveal-up">
+    <div class="glass glass--a">
+      <span class="glass__k" data-en="Completeness" data-si="සම්පූර්ණත්වය" data-ta="முழுமை">Completeness</span>
+      <span class="glass__v">88<small>%</small></span>
+    </div>
+    <div class="glass glass--b">
+      <span class="glass__bell">🔔</span>
+      <span><span class="glass__t" data-en="Package Accepted" data-si="කොටුව පිළිගන්නා ලදී" data-ta="தொகுப்பு ஏற்கப்பட்டது">Package Accepted</span><span class="glass__s" data-en="Auditor approved FY25/26" data-si="නියෝජ්‍ය 25/26 අනුමත කරයි" data-ta="தணிக்கையாளர் 25/26 ஐ ஒப்புதல் அளித்தார்">Auditor approved FY25/26</span></span>
+    </div>
+    <div class="glass glass--c">
+      <span class="glass__k" data-en="Documents" data-si="ලේඛන" data-ta="ஆவணங்கள்">Documents</span>
+      <span class="glass__v glass__v--peri">42<small>/48</small></span>
     </div>
 
-    <div class="flex items-center gap-3">
-      <!-- Language Toggle -->
-      <div class="hidden md:flex items-center gap-1 bg-gray-100 rounded-full p-1">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="si">සිං</button>
-        <button class="lang-btn" data-lang="ta">த</button>
+    <div class="wmock">
+      <div class="wmock__bar">
+        <div class="wmock__dots">
+          <span class="wmock__dot"></span><span class="wmock__dot"></span><span class="wmock__dot"></span>
+        </div>
+        <span class="wmock__url">app.taxeaselk.lk/workspace</span>
+        <div style="width: 40px;"></div>
+      </div>
+      <div class="wmock__body">
+        <div class="wmock__side">
+          <div class="wm-item is-active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            <span data-en="Overview" data-si="දළ විශ්ලේෂණය" data-ta="மேற்பார்வை">Overview</span>
+          </div>
+          <div class="wm-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            <span data-en="Documents" data-si="ලේඛන" data-ta="ஆவணங்கள்">Documents</span>
+          </div>
+          <div class="wm-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span data-en="Checklist" data-si="පරීක්ෂණ ලැයිස්තුව" data-ta="சரிபார்ப்பு பட்டியல்">Checklist</span>
+          </div>
+          <div class="wm-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            <span data-en="Auditor Review" data-si="නියෝජ්‍ය සමාලෝචනය" data-ta="தணிக்கையாளர் மதிப்பாய்வு">Auditor Review</span>
+          </div>
+          <div class="wm-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span data-en="Discussion" data-si="සාකච්ඡාව" data-ta="விவாதம்">Discussion</span>
+          </div>
+        </div>
+        <div class="wmock__main">
+          <div class="wmock__head">
+            <h4>ABC (Private) Limited<span>FY 2025/26</span></h4>
+            <span class="pill" data-en="In Review" data-si="සමාලෝචනය වෙමින්" data-ta="மதிப்பாய்வில்">In Review</span>
+          </div>
+          <div class="wmock__stats">
+            <div class="ws">
+              <span data-en="Completeness" data-si="සම්පූර්ණත්වය" data-ta="முழுமை">Completeness</span>
+              <b>88%</b>
+              <div class="ws__bar"><i style="width: 88%;"></i></div>
+            </div>
+            <div class="ws">
+              <span data-en="Documents" data-si="ලේඛන" data-ta="ஆவணங்கள்">Documents</span>
+              <b>42/48</b>
+              <div class="ws__bar"><i style="width: 87.5%;"></i></div>
+            </div>
+            <div class="ws">
+              <span data-en="Open Requests" data-si="විවෘත ඉල්ලීම්" data-ta="திறந்த கோரிக்கைகள்">Open Requests</span>
+              <b>3</b>
+              <div class="ws__bar"><i style="width: 20%; background: var(--muted);"></i></div>
+            </div>
+          </div>
+          <div class="wmock__list">
+            <h5 data-en="Recent Uploads & Status" data-si="මෑතකාලීන උඩුගත කිරීම් සහ තත්වය" data-ta="சமீபத்திய பதிவேற்றங்கள் & நிலை">Recent Uploads & Status</h5>
+            <div class="rows">
+              <div class="wmock__row">
+                <span class="wmock__file">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                  <span data-en="Bank Statements (March)" data-si="බැංකු ප්‍රකාශ (මාර්තු)" data-ta="வங்கி அறிக்கைகள் (மார்ச்)">Bank Statements (March)</span>
+                </span>
+                <span class="status status--ok" data-en="Received" data-si="ලැබුණු" data-ta="பெறப்பட்டது">Received</span>
+              </div>
+              <div class="wmock__row">
+                <span class="wmock__file">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                  <span data-en="General Ledger Export" data-si="පොදු මහජු නිකුත් කිරීම" data-ta="பொது பேரேடு ஏற்றுமதி">General Ledger Export</span>
+                </span>
+                <span class="status status--bad" data-en="Missing" data-si="අස්ථානගත වී ඇත" data-ta="காணவில்லை">Missing</span>
+              </div>
+              <div class="wmock__row">
+                <span class="wmock__file">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                  <span data-en="Payroll Summary Q1" data-si="වැටුප් සාරාංශය Q1" data-ta="ஊதிய சுருக்கம் Q1">Payroll Summary Q1</span>
+                </span>
+                <span class="status status--warn" data-en="Needs Correction" data-si="නිවැරදි කළ යුතුය" data-ta="திருத்தம் தேவை">Needs Correction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="scroll-cue"><i></i> <span data-en="Scroll" data-si="ස්ක්‍රෝල් කරන්න" data-ta="ஸ்க்ரோல்">Scroll</span></div>
+</section>
+
+<section class="stats">
+  <div class="stats__row">
+    <div class="stat reveal-up"><b class="counter" data-count="2">0</b><span data-en="For Business & Auditor" data-si="ව්‍යාපාර සහ නියෝජ්‍ය සඳහා" data-ta="வணிகம் & தணிக்கையாளருக்கு">For Business & Auditor</span></div>
+    <div class="stat reveal-up"><b class="counter" data-count="100" data-suffix="%">0</b><span data-en="Audit Trail Tracked" data-si="සිදුවීම් මාර්ගය නිරීක්ෂණය" data-ta="தணிக்கை சுவடு கண்காணிக்கப்பட்டது">Audit Trail Tracked</span></div>
+    <div class="stat reveal-up"><b class="counter" data-count="3">0</b><span data-en="Sinhala, Tamil, English" data-si="සිංහල, දෙමළ, ඉංග්‍රීසි" data-ta="சிங்களம், தமிழ், ஆங்கிலம்">Sinhala, Tamil, English</span></div>
+    <div class="stat reveal-up"><b>V1</b><span data-en="MVP Delivery Horizon" data-si="MVP භාරදීමේ කාලරේඛාව" data-ta="MVP வழங்குதல் காலக்கெடு">MVP Delivery Horizon</span></div>
+  </div>
+</section>
+
+<section class="modules" id="modules">
+  <div class="modules__head">
+    <div class="eyebrow reveal-up" data-en="Core Modules" data-si="ප්‍රධාන මොඩියුල" data-ta="முக்கிய தொகுதிகள்">Core Modules</div>
+    <h2 class="reveal-up" data-en="Everything for a <em>controlled handoff.</em>" data-si="පාලිත භාරදීමක් සඳහා <em>සියල්ල</em>." data-ta="கட்டுப்படுத்தப்பட்ட <em>ஒப்படைப்புக்கு</em> அனைத்தும்.">Everything for a <em>controlled handoff.</em></h2>
+    <p class="reveal-up" data-en="V1 is focused purely on document workflow and auditor collaboration — no tax engine, just clarity." data-si="V1 අවධානය යොමු වන්නේ ලේඛන ක්‍රියාවලිය සහ නියෝජ්‍ය සහයෝගීතාවය මත පමණි — බදු ගණනය කිරීමේ යන්ත්‍රයක් නැත, පැහැදිලිභාවය පමණි." data-ta="V1 ஆவண பணிப்பாய்வு மற்றும் தணிக்கையாளர் ஒத்துழைப்பில் மட்டுமே கவனம் செலுத்துகிறது — வரி இயந்திரம் இல்லை, வெறும் தெளிவு.">V1 is focused purely on document workflow and auditor collaboration — no tax engine, just clarity.</p>
+  </div>
+  <div class="modgrid">
+    <div class="modcard modcard--wide reveal-up">
+      <div>
+        <div class="modicon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></div>
+        <h3 data-en="Financial Year Workspace" data-si="මූල්‍ය වර්ෂ කාර්යසටහන" data-ta="நிதியாண்டு பணியிடம்">Financial Year Workspace</h3>
+        <p data-en="One controlled place for a company, financial year, document checklist, review status, and history. Replaces scattered email threads and shared folders." data-si="සමාගමක්, මූල්‍ය වර්ෂයක්, ලේඛන පරීක්ෂණ ලැයිස්තුව, සමාලෝචන තත්වය සහ ඉතිහාසය සඳහා පාලිත ස්ථානයක්. විසිරී ඇති ඊමේල් ත්‍රෙඩ් සහ හවුල් ෆෝල්ඩර් වෙනුවට ආදේශ වේ." data-ta="ஒரு நிறுவனம், நிதியாண்டு, ஆவண சரிபார்ப்பு பட்டியல், மதிப்பாய்வு நிலை மற்றும் வரலாறு ஆகியவற்றிற்கான கட்டுப்படுத்தப்பட்ட இடம். சிதறிய மின்னஞ்சல் நூல்கள் மற்றும் பகிரப்பட்ட கோப்புறைகளுக்கு மாற்றாக செயல்படும்.">One controlled place for a company, financial year, document checklist, review status, and history. Replaces scattered email threads and shared folders.</p>
+      </div>
+      <div class="modcard__tags">
+        <span>FY 2025/26</span><span data-en="Bank Statements" data-si="බැංකු ප්‍රකාශ" data-ta="வங்கி அறிக்கைகள்">Bank Statements</span><span data-en="General Ledger" data-si="පොදු මහජු" data-ta="பொது பேரேடு">General Ledger</span><span data-en="Tax Return" data-si="බදු ආදායම" data-ta="வரிக் குறிப்பு">Tax Return</span>
+      </div>
+    </div>
+    <div class="modcard reveal-up">
+      <div class="modicon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <h3 data-en="Completeness Gate" data-si="සම්පූර්ණත්ව ද්වාරය" data-ta="முழுமை வாயில்">Completeness Gate</h3>
+      <p data-en="A pre-submission view that highlights missing, unreadable, duplicate, or incomplete items before the package is sent to the auditor." data-si="කොටුව නියෝජ්‍යවරයා වෙත යැවීමට පෙර අස්ථානගත වූ, කියවිය නොහැකි, අනුපිටපත්, හෝ අසම්පූර්ණ අයිතම ඉස්මතු කරන පූර්ව-ඉදිරිපත් කිරීමේ දැක්මකි." data-ta="தொகுப்பு தணிக்கையாளரிடம் அனுப்புவதற்கு முன் காணாமல் போன, படிக்க முடியாத, நகல் அல்லது முழுமையடையாத பொருட்களை முன்னிலைப்படுத்தும் முன் சமர்ப்பிப்பு காட்சி.">A pre-submission view that highlights missing, unreadable, duplicate, or incomplete items before the package is sent to the auditor.</p>
+    </div>
+    <div class="modcard reveal-up">
+      <div class="modicon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+      <h3 data-en="Auditor Review Queue" data-si="නියෝජ්‍ය සමාලෝචන පෝලිම" data-ta="தணிக்கையாளர் மதிப்பாய்வு வரிசை">Auditor Review Queue</h3>
+      <p data-en="Auditors get a clean view of assigned companies, pending packages, open requests, and review progress. No more chasing files via email." data-si="නියෝජ්‍යවරුන්ට පවරා ඇති සමාගම්, විවෘත ඉල්ලීම් සහ සමාලෝචන ප්‍රගතිය පිළිබඳ පිරිසිදු දැක්මක් ලැබේ. ඊමේල් හරහා ලේඛන හඹා යාම නැත." data-ta="தணிக்கையாளர்களுக்கு ஒதுக்கப்பட்ட நிறுவனங்கள், நிலுவையில் உள்ள தொகுப்புகள், திறந்த கோரிக்கைகள் மற்றும் மதிப்பாய்வு முன்னேற்றம் ஆகியவற்றின் தெளிவான பார்வையைப் பெறுகிறார்கள். மின்னஞ்சல் மூலம் கோப்புகளைத் துரத்த வேண்டாம்.">Auditors get a clean view of assigned companies, pending packages, open requests, and review progress. No more chasing files via email.</p>
+    </div>
+    <div class="modcard reveal-up">
+      <div class="modicon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <h3 data-en="Requests & Responses" data-si="ඉල්ලීම් සහ ප්‍රතිචාර" data-ta="கோரிக்கைகள் & பதில்கள்">Requests & Responses</h3>
+      <p data-en="Auditor creates a request linked to a specific document. Business responds with a file or comment. Auditor re-reviews and accepts. Every step is tracked." data-si="නියෝජ්‍යවරයා නිශ්චිත ලේඛනයකට සම්බන්ධ ඉල්ලීමක් සාදයි. ව්‍යාපාරය ගොනුවකින් හෝ අදහසකින් ප්‍රතිචාර දක්වයි. නියෝජ්‍යවරයා නැවත සමාලෝචනය කර පිළිගනී. සෑම පියවරක්ම නිරීක්ෂණය වේ." data-ta="தணிக்கையாளர் ஒரு குறிப்பிட்ட ஆவணத்துடன் இணைக்கப்பட்ட கோரிக்கையை உருவாக்குகிறார். வணிகம் ஒரு கோப்பு அல்லது கருத்துடன் பதிலளிக்கிறது. தணிக்கையாளர் மறுபரிசீலனை செய்து ஏற்றுக்கொள்கிறார். ஒவ்வொரு அடியும் கண்காணிக்கப்படுகிறது.">Auditor creates a request linked to a specific document. Business responds with a file or comment. Auditor re-reviews and accepts. Every step is tracked.</p>
+    </div>
+    <div class="modcard reveal-up">
+      <div class="modicon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <h3 data-en="Audit History" data-si="සිදුවීම් ඉතිහාසය" data-ta="தணிக்கை வரலாறு">Audit History</h3>
+      <p data-en="Immutable event trail for uploads, replacements, submissions, requests, responses, and acceptance. One shared source of truth." data-si="උඩුගත කිරීම්, ප්‍රතිස්ථාපන, ඉදිරිපත් කිරීම්, ඉල්ලීම්, ප්‍රතිචාර සහ පිළිගැනීම් සඳහා නොනැසෙන සිදුවීම් මාර්ගයක්. එක් හවුල් සත්‍ය මූලාශ්‍රයක්." data-ta="பதிவேற்றங்கள், மாற்றங்கள், சமர்ப்பிப்புகள், கோரிக்கைகள், பதில்கள் மற்றும் ஏற்றுக்கொள்ளுதல்களுக்கான மாற்ற முடியாத நிகழ்வு சுவடு. ஒரு பகிரப்பட்ட உண்மையான ஆதாரம்.">Immutable event trail for uploads, replacements, submissions, requests, responses, and acceptance. One shared source of truth.</p>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="flow">
+  <div class="flow__head">
+    <div class="eyebrow reveal-up" data-en="Exact Workflow" data-si="නිශ්චිත ක්‍රියාවලිය" data-ta="சரியான பணிப்பாய்வு">Exact Workflow</div>
+    <h2 class="reveal-up" data-en="A controlled handoff from <em>business to auditor.</em>" data-si="<em>ව්‍යාපාරයේ සිට නියෝජ්‍ය වෙත</em> පාලිත භාරදීමක්." data-ta="<em>வணிகத்திலிருந்து தணிக்கையாளருக்கு</em> கட்டுப்படுத்தப்பட்ட ஒப்படைப்பு.">A controlled handoff from <em>business to auditor.</em></h2>
+    <p class="reveal-up" data-en="Every document and every request has a status, an owner, and a history." data-si="සෑම ලේඛනයකටම සහ සෑම ඉල්ලීමකටම තත්වයක්, හිමිකරුවෙක් සහ ඉතිහාසයක් ඇත." data-ta="ஒவ்வொரு ஆவணமும் ஒவ்வொரு கோரிக்கையும் ஒரு நிலை, உரிமையாளர் மற்றும் வரலாற்றைக் கொண்டுள்ளன.">Every document and every request has a status, an owner, and a history.</p>
+  </div>
+  <div class="flow__grid">
+    <div class="flow__step reveal-up"><b>01</b><h3 data-en="Upload & Organize" data-si="උඩුගත කර සංවිධානය කරන්න" data-ta="பதிவேற்றி ஒழுங்கமைக்கவும்">Upload & Organize</h3><p data-en="Business uploads required documents and organizes them by category within the workspace." data-si="ව්‍යාපාරය අවශ්‍ය ලේඛන උඩුගත කර කාර්යසටහන තුළ ප්‍රවර්ග අනුව සංවිධානය කරයි." data-ta="வணிகம் தேவையான ஆவணங்களைப் பதிவேற்றி பணியிடத்திற்குள் வகைப்படுத்தி ஒழுங்கமைக்கிறது.">Business uploads required documents and organizes them by category within the workspace.</p></div>
+    <div class="flow__step reveal-up"><b>02</b><h3 data-en="Checklist & Completeness" data-si="පරීක්ෂණ ලැයිස්තුව සහ සම්පූර්ණත්වය" data-ta="சரிபார்ப்பு பட்டியல் & முழுமை">Checklist & Completeness</h3><p data-en="Business uses the checklist to identify missing or incomplete items before sending." data-si="ව්‍යාපාරය යැවීමට පෙර අස්ථානගත හෝ අසම්පූර්ණ අයිතම හඳුනාගැනීමට පරීක්ෂණ ලැයිස්තුව භාවිතා කරයි." data-ta="வணிகம் அனுப்புவதற்கு முன் காணாமல் போன அல்லது முழுமையடையாத பொருட்களை அடையாளம் காண சரிபார்ப்பு பட்டியலைப் பயன்படுத்துகிறது.">Business uses the checklist to identify missing or incomplete items before sending.</p></div>
+    <div class="flow__step reveal-up"><b>03</b><h3 data-en="Send Package" data-si="කොටුව යවන්න" data-ta="தொகுப்பை அனுப்பவும்">Send Package</h3><p data-en="Business sends the package to the assigned auditor when ready for review." data-si="සමාලෝචනයට සූදානම් වූ විට ව්‍යාපාරය කොටුව පවරා ඇති නියෝජ්‍යවරයා වෙත යවයි." data-ta="மதிப்பாய்வுக்கு தயாராக இருக்கும்போது வணிகம் தொகுப்பை ஒதுக்கப்பட்ட தணிக்கையாளரிடம் அனுப்புகிறது.">Business sends the package to the assigned auditor when ready for review.</p></div>
+    <div class="flow__step reveal-up"><b>04</b><h3 data-en="Auditor Reviews" data-si="නියෝජ්‍ය සමාලෝචනය" data-ta="தணிக்கையாளர் மதிப்பாய்வு">Auditor Reviews</h3><p data-en="Auditor reviews submitted files, adds comments, and checks checklist items." data-si="නියෝජ්‍යවරයා ඉදිරිපත් කළ ගොනු සමාලෝචනය කර, අදහස් එකතු කර, පරීක්ෂණ ලැයිස්තු අයිතම පරීක්ෂා කරයි." data-ta="தணிக்கையாளர் சமர்ப்பிக்கப்பட்ட கோப்புகளை மதிப்பாய்வு செய்து, கருத்துகளைச் சேர்த்து, சரிபார்ப்பு பட்டியல் உருப்படிகளை சரிபார்க்கிறார்.">Auditor reviews submitted files, adds comments, and checks checklist items.</p></div>
+    <div class="flow__step reveal-up"><b>05</b><h3 data-en="Request & Respond" data-si="ඉල්ලීම සහ ප්‍රතිචාරය" data-ta="கோரி பதிலளிக்கவும்">Request & Respond</h3><p data-en="Auditor requests missing/corrected docs. Business uploads response and replies." data-si="නියෝජ්‍යවරයා අස්ථානගත/නිවැරදි කළ ලේඛන ඉල්ලා සිටී. ව්‍යාපාරය ප්‍රතිචාරය උඩුගත කර පිළිතුරු දෙයි." data-ta="தணிக்கையாளர் காணவில்லை/திருத்தப்பட்ட ஆவணங்களை கோருகிறார். வணிகம் பதிலைப் பதிவேற்றி பதிலளிக்கிறது.">Auditor requests missing/corrected docs. Business uploads response and replies.</p></div>
+    <div class="flow__step reveal-up"><b>06</b><h3 data-en="Re-review & Accept" data-si="නැවත සමාලෝචනය සහ පිළිගැනීම" data-ta="மறுபரிசீலனை & ஏற்றுக்கொள்">Re-review & Accept</h3><p data-en="Auditor re-reviews the response and accepts the package when complete." data-si="නියෝජ්‍යවරයා ප්‍රතිචාරය නැවත සමාලෝචනය කර කොටුව සම්පූර්ණ වූ විට පිළිගනී." data-ta="தணிக்கையாளர் பதிலை மறுபரிசீலனை செய்து தொகுப்பு முழுமையடைந்தவுடன் ஏற்றுக்கொள்கிறார்.">Auditor re-reviews the response and accepts the package when complete.</p></div>
+    <div class="flow__step reveal-up"><b>07</b><h3 data-en="Tracked Every Step" data-si="සෑම පියවරකම නිරීක්ෂණය" data-ta="ஒவ்வொரு அடியிலும் கண்காணிக்கப்பட்டது">Tracked Every Step</h3><p data-en="100% of the workflow — uploads, requests, responses, acceptance — is written to the audit history." data-si="ක්‍රියාවලියෙන් 100%ක් — උඩුගත කිරීම්, ඉල්ලීම්, ප්‍රතිචාර, පිළිගැනීම් — සිදුවීම් ඉතිහාසයට ලියා ඇත." data-ta="பணிப்பாய்வின் 100% — பதிவேற்றங்கள், கோரிக்கைகள், பதில்கள், ஏற்றுக்கொள்ளுதல்கள் — தணிக்கை வரலாற்றில் எழுதப்படுகின்றன.">100% of the workflow — uploads, requests, responses, acceptance — is written to the audit history.</p></div>
+  </div>
+</section>
+
+<section class="particle-section">
+  <div id="stage" style="background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-lg); border-radius: var(--r-lg); padding: 3rem 3rem 3.5rem; min-height: 320px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center; cursor: pointer; position: relative; overflow: hidden;">
+    <div class="particle-area">
+      <p style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--peri-ink); margin: 0 0 1.25rem; text-transform: uppercase;" data-en="premium &middot; AI spend" data-si="ප්‍රීමියම් &middot; AI වියදම්" data-ta="பிரீமியம் &middot; AI செலவு">premium &middot; AI spend</p>
+      <div style="position: relative; height: 180px;">
+        <canvas id="canvas" style="width: 100%; height: 180px; display: block; position: absolute; top: 0; left: 0;"></canvas>
+        <div id="realtext" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.35s ease;">
+          <h2 style="font-family: var(--display), Arial, sans-serif; font-weight: 700; font-size: 42px; line-height: 1.12; margin: 0; letter-spacing: -0.01em;">
+            <span style="color: var(--ink);" data-en="Snap a receipt.<br>Let AI do the<br>" data-si="ක්ෂුද්‍ර පිටපතක් ගන්න.<br>AI එය කරන්න<br>දෙන්න." data-ta="ரசீதை ஸ்னாப் செய்யவும்.<br>AI கணிதத்தை<br>செய்யட்டும்.">Snap a receipt.<br>Let AI do the<br></span><span style="color: var(--orange);" data-en="math." data-si="ගණනය." data-ta="கணக்கு.">math.</span>
+          </h2>
+        </div>
+      </div>
+      <p style="font-size: 13px; color: var(--muted); margin: 1.25rem 0 0; line-height: 1.6; max-width: 380px; opacity: 0; transition: opacity 0.6s ease;" id="caption" data-en="Typing receipts is a chore. Snapping one is a tap.<br>The AI pulls out the numbers, files them into categories, and throws the photo away." data-si="ක්ෂුද්‍ර පිටපත් ටයිප් කිරීම කුරුසියකි. එකක් ගැනීම තට්ටුවකි.<br>AI අංක ඉවත් කර, ඒවා ප්‍රවර්ග වලට ගොනු කර, ඡායාරූපය ඉවත් කරයි." data-ta="ரசீதுகளை தட்டச்சு செய்வது ஒரு கடினமான வேலை. ஒன்றை ஸ்னாப் செய்வது ஒரு டேப்.<br>AI எண்களை எடுத்து, அவற்றை வகைகளாக பிரித்து, படத்தை கழட்டி எறிகிறது.">Typing receipts is a chore. Snapping one is a tap.<br>The AI pulls out the numbers, files them into categories, and throws the photo away.</p>
+      <p style="font-size: 12px; color: var(--muted); margin: 1rem 0 0; opacity: 1; transition: opacity 0.3s ease;" id="hint" data-en="Tap to assemble" data-si="එකලස් කිරීමට තට්ටු කරන්න" data-ta="ஒன்றிணைக்க தட்டவும்">Tap to assemble</p>
+    </div>
+
+    <div class="extract-mockup" id="extractMockup">
+      <div class="em-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+        <span data-en="AI Extraction" data-si="AI සාරාංශනය" data-ta="AI பிரித்தெடுத்தல்">AI Extraction</span>
+        <span class="em-live" data-en="Live" data-si="සජීවී" data-ta="நேரடி">Live</span>
+      </div>
+      <div class="em-body">
+        <div class="em-receipt">
+          <div class="em-scan-line"></div>
+          <div class="em-line w-40"></div>
+          <div class="em-line w-80"></div>
+          <div class="em-line w-60"></div>
+          <div style="flex: 1;"></div>
+          <div class="em-line w-30"></div>
+          <div class="em-line w-70"></div>
+        </div>
+        <div class="em-data">
+          <div class="em-data-row">
+            <span data-en="Vendor" data-si="විකුණුම්කරු" data-ta="விற்பனையாளர்">Vendor</span>
+            <b>Colombo Roastery</b>
+          </div>
+          <div class="em-data-row">
+            <span data-en="Date" data-si="දිනය" data-ta="தேதி">Date</span>
+            <b>12 April 2026</b>
+          </div>
+          <div class="em-data-row">
+            <span data-en="Total Amount" data-si="මුළු මුදල" data-ta="மொத்த தொகை">Total Amount</span>
+            <b class="em-amount">LKR 4,500</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="pricing__head">
+    <div class="eyebrow reveal-up" data-en="Pricing Model" data-si="මිල නියම ආකෘතිය" data-ta="விலை நிர்ணய மாதிரி">Pricing Model</div>
+    <h2 class="reveal-up" data-en="Aligned to <em>value and ownership.</em>" data-si="<em>වටිනාකමට සහ හිමිකමට</em> ගැලපෙන." data-ta="<em>மதிப்பு மற்றும் உரிமைக்கு</em> ஏற்றவாறு.">Aligned to <em>value and ownership.</em></h2>
+    <p class="reveal-up" data-en="Two subscriptions because the business and the auditor receive different value." data-si="ව්‍යාපාරය සහ නියෝජ්‍යවරයා වෙනස් වටිනාකමක් ලබා ගන්නා බැවින් දෙක් දායකත්වයන්." data-ta="வணிகம் மற்றும் தணிக்கையாளர் வெவ்வேறு மதிப்பைப் பெறுவதால் இரண்டு சந்தாக்கள்.">Two subscriptions because the business and the auditor receive different value.</p>
+    <div class="toggle reveal-up" id="priceToggle">
+      <div class="toggle__thumb" id="toggleThumb"></div>
+      <button class="toggle__opt is-active" data-tab="business" data-en="Business" data-si="ව්‍යාපාරය" data-ta="வணிகம்">Business</button>
+      <button class="toggle__opt" data-tab="auditor" data-en="Auditor" data-si="නියෝජ්‍ය" data-ta="தணிக்கையாளர்">Auditor</button>
+    </div>
+  </div>
+
+  <div class="plans" data-panel="business">
+    <div class="plan reveal-up">
+      <header><h3 data-en="Free" data-si="නොමිලේ" data-ta="இலவசம்">Free</h3></header>
+      <div class="plan__price">Rs 0 <small data-en="forever" data-si="සදහටම" data-ta="என்றென்றைக்கும்">forever</small></div>
+      <p data-en="For individuals" data-si="පුද්ගලයින් සඳහා" data-ta="தனிநபர்களுக்கு">For individuals</p>
+      <ul>
+        <li data-en="1 company workspace" data-si="සමාගම් කාර්යසටහන 1" data-ta="1 நிறுவன பணியிடம்">1 company workspace</li><li data-en="1 GB storage" data-si="1 GB ආචයනය" data-ta="1 GB சேமிப்பு">1 GB storage</li><li data-en="1 user" data-si="පරිශීලක 1" data-ta="1 பயனர்">1 user</li>
+      </ul>
+      <a href="#contact" class="btn btn--ghost btn--block" data-cursor="hover" data-en="Get Started" data-si="පටන් ගන්න" data-ta="தொடங்குக">Get Started</a>
+    </div>
+    <div class="plan reveal-up">
+      <header><h3 data-en="Starter" data-si="ආරම්භක" data-ta="தொடக்க">Starter</h3></header>
+      <div class="plan__price">Rs 2,900 <small data-en="/ month" data-si="/ මාසය" data-ta="/ மாதம்">/ month</small></div>
+      <p data-en="For a single company" data-si="තනි සමාගමක් සඳහා" data-ta="ஒரு நிறுவனத்திற்கு">For a single company</p>
+      <ul>
+        <li data-en="1 company workspace" data-si="සමාගම් කාර්යසටහන 1" data-ta="1 நிறுவன பணியிடம்">1 company workspace</li><li data-en="5GB storage" data-si="5GB ආචයනය" data-ta="5GB சேமிப்பு">5GB storage</li><li data-en="Up to 3 team members" data-si="කණ්ඩායම් සාමාජිකයින් 3 දක්වා" data-ta="3 குழு உறுப்பினர்கள் வரை">Up to 3 team members</li>
+        <li data-en="Checklist, document status, auditor chat, activity history" data-si="පරීක්ෂණ ලැයිස්තුව, ලේඛන තත්වය, නියෝජ්‍ය චැට්, ක්‍රියාකාරකම් ඉතිහාසය" data-ta="சரிபார்ப்பு பட்டியல், ஆவண நிலை, தணிக்கையாளர் அரட்டை, செயல்பாடு வரலாறு">Checklist, document status, auditor chat, activity history</li>
+      </ul>
+      <a href="#contact" class="btn btn--ghost btn--block" data-cursor="hover" data-en="Buy Now" data-si="දැන් මිලදී ගන්න" data-ta="இப்போது வாங்க">Buy Now</a>
+    </div>
+    <div class="plan plan--pro reveal-up">
+      <span class="plan__flag">POPULAR</span>
+      <header><h3 data-en="Growth" data-si="වර්ධනය" data-ta="வளர்ச்சி">Growth</h3></header>
+      <div class="plan__price">Rs 5,900 <small data-en="/ month" data-si="/ මාසය" data-ta="/ மாதம்">/ month</small></div>
+      <p data-en="For juggling more than one company or year at once" data-si="එකවර සමාගම් එකකට වඩා හෝ වර්ෂයක් හැසිරවීමට" data-ta="ஒரு நேரத்தில் ஒன்றுக்கு மேற்பட்ட நிறுவனங்கள் அல்லது ஆண்டுகளை கையாள">For juggling more than one company or year at once</p>
+      <ul>
+        <li data-en="Up to 3 workspaces" data-si="කාර්යසටහන් 3 දක්වා" data-ta="3 பணியிடங்கள் வரை">Up to 3 workspaces</li><li data-en="Up to 8 team members" data-si="කණ්ඩායම් සාමාජිකයින් 8 දක්වා" data-ta="8 குழு உறுப்பினர்கள் வரை">Up to 8 team members</li><li data-en="20GB storage" data-si="20GB ආචයනය" data-ta="20GB சேமிப்பு">20GB storage</li><li data-en="Priority email support" data-si="ප්‍රමුඛතා ඊමේල් සහාය" data-ta="முன்னுரிமை மின்னஞ்சல் ஆதரவு">Priority email support</li>
+      </ul>
+      <a href="#contact" class="btn btn--solid btn--block" data-cursor="hover" data-en="Buy Now" data-si="දැන් මිලදී ගන්න" data-ta="இப்போது வாங்க">Buy Now</a>
+    </div>
+    <div class="plan reveal-up">
+      <header><h3 data-en="Enterprise" data-si="ආයතනික" data-ta="நிறுவனம்">Enterprise</h3></header>
+      <div class="plan__price">Rs 11,900 <small data-en="/ month" data-si="/ මාසය" data-ta="/ மாதம்">/ month</small></div>
+      <p data-en="For company groups or larger businesses" data-si="සමාගම් සමූහ හෝ විශාල ව්‍යාපාර සඳහා" data-ta="நிறுவன குழுக்கள் அல்லது பெரிய வணிகங்களுக்கு">For company groups or larger businesses</p>
+      <ul>
+        <li data-en="Unlimited workspaces" data-si="අසීමිත කාර්යසටහන්" data-ta="வரம்பற்ற பணியிடங்கள்">Unlimited workspaces</li><li data-en="100GB storage" data-si="100GB ආචයනය" data-ta="100GB சேமிப்பு">100GB storage</li><li data-en="Unlimited team members" data-si="අසීමිත කණ්ඩායම් සාමාජිකයින්" data-ta="வரம்பற்ற குழு உறுப்பினர்கள்">Unlimited team members</li><li data-en="Dedicated onboarding + faster support" data-si="වෙන් කළ ඔන්බෝඩින් + වේගවත් සහාය" data-ta="பிரத்யேக ஒன்றிணைப்பு + வேகமான ஆதரவு">Dedicated onboarding + faster support</li>
+      </ul>
+      <a href="#contact" class="btn btn--ghost btn--block" data-cursor="hover" data-en="Buy Now" data-si="දැන් මිලදී ගන්න" data-ta="இப்போது வாங்க">Buy Now</a>
+    </div>
+  </div>
+
+  <div class="plans" data-panel="auditor" data-hidden style="grid-template-columns: repeat(2, minmax(0,1fr)); max-width: 780px; margin-inline: auto;">
+    <div class="plan plan--pro reveal-up">
+      <span class="plan__flag">POPULAR</span>
+      <header><h3 data-en="Auditor Solo" data-si="තනි නියෝජ්‍ය" data-ta="தனி தணிக்கையாளர்">Auditor Solo</h3></header>
+      <div class="plan__price">Rs 6,900 <small data-en="/ month" data-si="/ මාසය" data-ta="/ மாதம்">/ month</small></div>
+      <p data-en="For an individual auditor or tax professional" data-si="තනි නියෝජ්‍යවරයෙකු හෝ බදු වෘතිකයෙකු සඳහා" data-ta="தனிப்பட்ட தணிக்கையாளர் அல்லது வரி நிபுணருக்கு">For an individual auditor or tax professional</p>
+      <ul>
+        <li data-en="Up to 15 client companies" data-si="පාරිභෝගික සමාගම් 15 දක්වා" data-ta="15 வாடிக்கையாளர் நிறுவனங்கள் வரை">Up to 15 client companies</li><li data-en="1 reviewer login" data-si="සමාලෝචක පිවිසුම 1" data-ta="1 மதிப்பாய்வாளர் உள்நுழைவு">1 reviewer login</li>
+        <li data-en="Full review tools: queue, requests, comments, accept package" data-si="පූර්ණ සමාලෝචන මෙවලම්: පෝලිම, ඉල්ලීම්, අදහස්, කොටුව පිළිගැනීම" data-ta="முழு மதிப்பாய்வு கருவிகள்: வரிசை, கோரிக்கைகள், கருத்துகள், தொகுப்பை ஏற்றுக்கொள்">Full review tools: queue, requests, comments, accept package</li>
+      </ul>
+      <a href="#contact" class="btn btn--solid btn--block" data-cursor="hover" data-en="Buy Now" data-si="දැන් මිලදී ගන්න" data-ta="இப்போது வாங்க">Buy Now</a>
+    </div>
+    <div class="plan reveal-up">
+      <header><h3 data-en="Auditor Firm" data-si="නියෝජ්‍ය සමාගම" data-ta="தணிக்கை நிறுவனம்">Auditor Firm</h3></header>
+      <div class="plan__price">Rs 16,900 <small data-en="/ month" data-si="/ මාසය" data-ta="/ மாதம்">/ month</small></div>
+      <p data-en="For accounting firms with a team" data-si="කණ්ඩායමක් සහිත ගිණුම්කරණ සමාගම් සඳහා" data-ta="குழுவுடன் கணக்கியல் நிறுவனங்களுக்கு">For accounting firms with a team</p>
+      <ul>
+        <li data-en="Unlimited client companies" data-si="අසීමිත පාරිභෝගික සමාගම්" data-ta="வரம்பற்ற வாடிக்கையாளர் நிறுவனங்கள்">Unlimited client companies</li><li data-en="Up to 10 reviewer logins" data-si="සමාලෝචක පිවිසුම් 10 දක්වා" data-ta="10 மதிப்பாய்வாளர் உள்நுழைவுகள் வரை">Up to 10 reviewer logins</li>
+        <li data-en="Assign clients to reviewers, firm-wide reporting" data-si="පාරිභෝගිකයින් සමාලෝචකයින්ට පවරන්න, සමාගම් ව්‍යාප්ත වාර්තාකරණය" data-ta="வாடிக்கையாளர்களை மதிப்பாய்வாளர்களுக்கு ஒதுக்கு, நிறுவன அளவிலான அறிக்கையிடல்">Assign clients to reviewers, firm-wide reporting</li><li data-en="Priority support" data-si="ප්‍රමුඛතා සහාය" data-ta="முன்னுரிமை ஆதரவு">Priority support</li>
+      </ul>
+      <a href="#contact" class="btn btn--ghost btn--block" data-cursor="hover" data-en="Buy Now" data-si="දැන් මිලදී ගන්න" data-ta="இப்போது வாங்க">Buy Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="faq__head">
+    <div class="eyebrow reveal-up" data-en="FAQ" data-si="නිතර අසන පැන" data-ta="அடிக்கடி கேட்கப்படும் கேள்விகள்">FAQ</div>
+    <h2 class="reveal-up" data-en="Boundaries, <em>answered.</em>" data-si="සීමාවන්, <em>පිළිතුරු දුන්.</em>" data-ta="எல்லைகள், <em>பதிலளிக்கப்பட்டன.</em>">Boundaries, <em>answered.</em></h2>
+    <p class="reveal-up" data-en="Straight answers on what V1 does and doesn't do." data-si="V1 කරන සහ නොකරන දේ පිළිබඳ ���ලි පිළිතුරු." data-ta="V1 செய்வது மற்றும் செய்யாதது பற்றிய நேரடி பதில்கள்.">Straight answers on what V1 does and doesn't do.</p>
+  </div>
+  <div class="faq__list">
+    <details class="qa reveal-up" open>
+      <summary data-en="Does V1 calculate my corporate tax?" data-si="V1 මගේ සංස්ථාපිත බදු ගණනය කරයිද?" data-ta="V1 எனது நிறுவன வரியை கணக்கிடுகிறதா?">Does V1 calculate my corporate tax?<i></i></summary>
+      <p data-en="No. V1 is deliberately not a tax engine. It focuses on collecting, organizing, and reviewing the documents required for tax work. Tax calculation is on the V2 roadmap." data-si="නැත. V1 හිතාමතාම බදු යන්ත්‍රයක් නොවේ. එය බදු කටයුතු සඳහා අවශ්‍ය ලේඛන එකතු කිරීම, සංවිධානය කිරීම සහ සමාලෝචනය කිරීම කෙරෙහි අවධානය යොමු කරයි. බදු ගණනය කිරීම V2 රෝඩ්මැප් මත ඇත." data-ta="இல்லை. V1 வேண்டுமென்றே ஒரு வரி இயந்திரம் அல்ல. இது வரி வேலைக்கு தேவையான ஆவணங்களை சேகரித்தல், ஒழுங்கமைத்தல் மற்றும் மதிப்பாய்வு செய்வதில் கவனம் செலுத்துகிறது. வரி கணக்கீடு V2 வரைபடத்தில் உள்ளது.">No. V1 is deliberately not a tax engine. It focuses on collecting, organizing, and reviewing the documents required for tax work. Tax calculation is on the V2 roadmap.</p>
+    </details>
+    <details class="qa reveal-up">
+      <summary data-en="Can I submit returns to the IRD through TaxEaseLK?" data-si="මට TaxEaseLK හරහා IRD වෙත ආදායම් ඉදිරිපත් කළ හැකිද?" data-ta="TaxEaseLK மூலம் IRD க்கு வருவாய் ரிட்டர்ன்களை சமர்ப்பிக்க முடியுமா?">Can I submit returns to the IRD through TaxEaseLK?<i></i></summary>
+      <p data-en="No, return generation and e-filing are explicitly out of scope for V1. The platform stops at auditor acceptance of the document package." data-si="නැත, ආදායම් උත්පාදනය සහ ඊ-ෆයිලින් V1 සඳහා පැහැදිලිවම වියදම් කර නැත. වේදිකාව ලේඛන කොටුවේ නියෝජ්‍ය පිළිගැනීමෙන් නතර වේ." data-ta="இல்லை, ரிட்டர்ன் உருவாக்கம் மற்றும் மின்-தாக்கல் ஆகியவை V1 க்கான வரம்பிற்கு வெளியே உள்ளன. இந்த தளம் ஆவண தொகுப்பின் தணிக்கையாளர் ஏற்பில் நிறைவடைகிறது.">No, return generation and e-filing are explicitly out of scope for V1. The platform stops at auditor acceptance of the document package.</p>
+    </details>
+    <details class="qa reveal-up">
+      <summary data-en="How does the auditor collaboration work?" data-si="නියෝජ්‍ය සහයෝගීතාවය ක්‍රියාත්මක වන්නේ කෙසේද?" data-ta="தணிக்கையாளர் ஒத்துழைப்பு எப்படி செயல்படுகிறது?">How does the auditor collaboration work?<i></i></summary>
+      <p data-en="You submit a complete package, the auditor reviews it, requests missing or corrected docs if needed via the request-response loop, and accepts the package when complete. Everything is tracked in history." data-si="ඔබ සම්පූර්ණ කොටුවක් ඉදිරිපත් කරයි, නියෝජ්‍යවරයා එය සමාලෝචනය කරයි, අවශ්‍ය නම් ඉල්ලීම-ප්‍රතිචාර ලූපය හරහා අස්ථානගත හෝ නිවැරදි කළ ලේඛන ඉල්ලා සිටියි, සහ කොටුව සම්පූර්ණ වූ විට පිළිගනී. සියල්ල ඉතිහාසයේ නිරීක්ෂණය වේ." data-ta="நீங்கள் ஒரு முழு தொகுப்பை சமர்ப்பிக்கிறீர்கள், தணிக்கையாளர் அதை மதிப்பாய்வு செய்கிறார், தேவைப்பட்டால் கோரிக்கை-பதில் சுழற்சி மூலம் காணவில்லை அல்லது திருத்தப்பட்ட ஆவணங்களை கோருகிறார், மேலும் முழுமையடைந்ததும் தொகுப்பை ஏற்றுக்கொள்கிறார். எல்லாம் வரலாற்றில் கண்காணிக்கப்படுகிறது.">You submit a complete package, the auditor reviews it, requests missing or corrected docs if needed via the request-response loop, and accepts the package when complete. Everything is tracked in history.</p>
+    </details>
+    <details class="qa reveal-up">
+      <summary data-en="Are other tax types supported?" data-si="වෙනත් බදු වර්ග සහාය දක්වනවාද?" data-ta="பிற வரி வகைகள் ஆதரிக்கப்படுகின்றனவா?">Are other tax types supported?<i></i></summary>
+      <p data-en="No. V1 handles only the corporate tax document workflow for Pvt Ltd companies. VAT, PAYE, and other taxes are not supported in this version." data-si="නැත. V1 පෞද්ගලික සීමාසහිත සමාගම් සඳහා සංස්ථාපිත බදු ලේඛන ක්‍රියාවලිය පමණක් හසුරුවයි. මෙම වෙළුමේ VAT, PAYE සහ වෙනත් බදු සඳහා සහාය නොමැත." data-ta="இல்லை. V1 ஒரு தனியார் நிறுவனத்தின் நிறுவன வரி ஆவண பணிப்பாய்வை மட்டுமே கையாள்கிறது. VAT, PAYE மற்றும் பிற வரிகள் இந்த பதிப்பில் ஆதரிக்கப்படவில்லை.">No. V1 handles only the corporate tax document workflow for Pvt Ltd companies. VAT, PAYE, and other taxes are not supported in this version.</p>
+    </details>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact__wrapper">
+    <div class="contact__card" id="contactCard">
+      <div class="contact__text">
+        <div class="eyebrow reveal-up" data-en="Contact Us" data-si="අප අමතන්න" data-ta="எங்களை தொடர்பு கொள்ள">Contact Us</div>
+        <h2 class="reveal-up" data-en="Ready to organize <em>your tax workflow?</em>" data-si="<em>ඔබේ බදු ක්‍රියාවලිය</em> සංවිධානය කිරීමට සූදානම්ද?" data-ta="<em>உங்கள் வரி பணிப்பாய்வை</em> ஒழுங்கமைக்க தயாரா?">Ready to organize <em>your tax workflow?</em></h2>
+        <p class="reveal-up" data-en="Fill out the form, and our team will reach out to set up your workspace and get your auditor connected." data-si="පෝරමය පුරවන්න, අපගේ කණ්ඩායම ඔබේ කාර්යසටහන සැකසීමට සහ ඔබේ නියෝජ්‍යවරයා සම්බන්ධ කිරීමට ළඟා වනු ඇත." data-ta="படிவத்தை நிரப்புங்கள், உங்கள் பணியிடத்தை அமைக்கவும் உங்கள் தணிக்கையாளரை இணைக்கவும் எங்கள் குழு உங்களை அணுகும்.">Fill out the form, and our team will reach out to set up your workspace and get your auditor connected.</p>
+        <div class="contact__meta reveal-up">
+          <a href="mailto:taxeaselk2026@gmail.com" data-cursor="hover">✉️ taxeaselk2026@gmail.com</a>
+          <span>📍 Colombo, Sri Lanka</span>
+        </div>
       </div>
       
-      <a href="https://taxeaselk.vercel.app/role" class="btn-primary text-sm hidden md:flex" style="padding:8px 18px;font-size:14px;border-radius:9999px;">
-        <span data-i18n="nav_cta">Get Started</span>
-      </a>
-      <button id="menuBtn" class="md:hidden w-10 h-10 rounded-full flex items-center justify-center bg-white shadow-md" aria-label="Toggle menu">
-        <div class="menu-icon w-5 h-4 relative" id="menuIcon">
-          <span class="absolute top-0 left-0 w-full h-0.5 bg-gray-800 transition-all duration-300"></span>
-          <span class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-800 transition-all duration-300"></span>
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gray-800 transition-all duration-300"></span>
-        </div>
-      </button>
+      <form class="cform reveal-up" id="contactForm">
+        <input type="text" name="Name" data-en="Name" data-si="නම" data-ta="பெயர்" placeholder="Name" required>
+        <input type="email" name="Email" data-en="Email" data-si="ඊමේල්" data-ta="மின்னஞ்சல்" placeholder="Email" required>
+        <input type="tel" name="Phone" data-en="Phone Number" data-si="දුරකථන අංකය" data-ta="தொலைபேசி எண்" placeholder="Phone Number">
+        <input type="text" name="Business" data-en="Business Name (Optional)" data-si="ව්‍යාපාර නාමය (විකල්ප)" data-ta="வணிகப் பெயர் (விரும்பினால்)" placeholder="Business Name (Optional)">
+        <button type="submit" class="btn btn--solid" data-cursor="hover" data-en="Send Request" data-si="ඉල්ලීම යවන්න" data-ta="கோரிக்கையை அனுப்பு">Send Request</button>
+      </form>
     </div>
-  </nav>
-</div>
 
-<!-- Mobile Full-Screen Overlay -->
-<div id="mobileOverlay" class="mobile-overlay md:hidden">
-  <button id="closeBtn" class="absolute top-8 right-8 p-2 text-gray-500"><i class="fa-solid fa-xmark text-3xl"></i></button>
-  <a href="#features" class="mobile-link" data-i18n="nav_features">Features</a>
-  <a href="#how" class="mobile-link" style="transition-delay: 0.1s;" data-i18n="nav_how">How it Works</a>
-  <a href="#pricing" class="mobile-link" style="transition-delay: 0.2s;" data-i18n="nav_pricing">Pricing</a>
-  <a href="#contact" class="mobile-link" style="transition-delay: 0.3s;" data-i18n="nav_contact">Contact</a>
-  <div class="mt-8 flex gap-4">
-    <div class="flex items-center gap-1 bg-white rounded-full p-1 shadow">
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="si">සිං</button>
-      <button class="lang-btn" data-lang="ta">த</button>
-    </div>
-  </div>
-</div>
-
-<!-- =========================================
-     HERO SECTION
-     ========================================= -->
-<section id="hero" class="hero-bg pt-40 pb-24 relative overflow-hidden">
-  <div class="absolute inset-0 grid-pattern"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-
-  <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-
-      <div>
-        <div class="badge reveal">
-          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          <span data-i18n="hero_badge">Corporate Tax Document Platform</span>
-        </div>
-        <h1 class="font-display font-extrabold mt-6 text-5xl md:text-6xl reveal" style="line-height:1.1; transition-delay: 0.1s;">
-          <span data-i18n="hero_title_1">Collect clearly.</span><br>
-          <span data-i18n="hero_title_2">Review confidently.</span> <span style="color:var(--accent);" data-i18n="hero_title_3">Move forward.</span>
-        </h1>
-        <p class="mt-6 text-lg text-gray-500 max-w-md reveal" style="line-height:1.6; transition-delay: 0.2s;" data-i18n="hero_sub">
-          A trusted workspace for Sri Lankan Pvt Ltd companies to collect, organize, and hand off corporate tax documents to auditors without the email chaos.
-        </p>
-
-        <div class="mt-8 flex flex-wrap gap-4 reveal" style="transition-delay: 0.3s;">
-          <a href="#pricing" class="btn-primary">
-            <span data-i18n="hero_cta_1">Start Free Trial</span>
-            <i class="fa-solid fa-arrow-right text-xs"></i>
-          </a>
-          <a href="#how" class="btn-secondary">
-            <i class="fa-regular fa-circle-play text-sm"></i>
-            <span data-i18n="hero_cta_2">How it Works</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Next-Level 3D App Mockup -->
-      <div class="relative h-[500px] hidden lg:flex items-center justify-center reveal" style="transition-delay: 0.2s;">
-        <div class="mock-wrapper">
-          <div class="mock-container" id="mockContainer">
-            <div class="mock-3d" id="mock3d">
-              <div class="browser-window">
-                <!-- Browser Chrome -->
-                <div class="flex items-center gap-2 px-4 py-3 border-b border-gray-100 bg-gray-50">
-                  <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                  <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                  <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                  <div class="flex-1 ml-4 bg-white border border-gray-200 rounded-md py-1 px-3 text-xs text-gray-400 flex items-center gap-2">
-                    <i class="fa-solid fa-lock text-xs text-gray-400"></i> app.taxeaselk.lk/workspace
-                  </div>
-                </div>
-
-                <!-- App Content -->
-                <div class="flex h-[360px]">
-                  <!-- Sidebar -->
-                  <div class="w-48 mock-sidebar text-white p-4 flex flex-col">
-                    <div class="flex items-center gap-2 mb-8">
-                      <div class="w-6 h-6 rounded bg-sky-500 flex items-center justify-center">
-                        <i class="fa-solid fa-folder-tree text-white text-[10px]"></i>
-                      </div>
-                      <span class="font-semibold text-sm">TaxEaseLK</span>
-                    </div>
-                    <nav class="flex-1 space-y-1 text-xs text-gray-400">
-                      <div class="flex items-center gap-2 py-2 px-2 rounded-md bg-white/10 text-white">
-                        <i class="fa-solid fa-gauge w-4"></i> <span data-i18n="mock_overview">Overview</span>
-                      </div>
-                      <div class="flex items-center gap-2 py-2 px-2">
-                        <i class="fa-solid fa-file-lines w-4"></i> <span data-i18n="mock_documents">Documents</span>
-                      </div>
-                      <div class="flex items-center gap-2 py-2 px-2">
-                        <i class="fa-solid fa-list-check w-4"></i> <span data-i18n="mock_checklist">Checklist</span>
-                      </div>
-                      <div class="flex items-center gap-2 py-2 px-2">
-                        <i class="fa-solid fa-user-tie w-4"></i> <span data-i18n="mock_auditor">Auditor Review</span>
-                      </div>
-                      <div class="flex items-center gap-2 py-2 px-2">
-                        <i class="fa-solid fa-comments w-4"></i> <span data-i18n="mock_discussion">Discussion</span>
-                      </div>
-                    </nav>
-                    <div class="bg-sky-500/20 border border-sky-500/30 rounded-lg p-2 text-[10px] text-sky-200">
-                      <div class="font-bold mb-1" data-i18n="mock_alert_title">FY 2025/26</div>
-                      <div data-i18n="mock_alert_body">Workspace Active</div>
-                    </div>
-                  </div>
-
-                  <!-- Main Panel -->
-                  <div class="flex-1 mock-main p-5 overflow-hidden">
-                    <div class="flex justify-between items-center mb-4">
-                      <div>
-                        <div class="text-[10px] text-gray-400" data-i18n="mock_workspace">FY 2025/26 Workspace</div>
-                        <div class="font-bold text-sm text-gray-800">ABC (Private) Limited</div>
-                      </div>
-                      <div class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> <span data-i18n="mock_status">In Review</span>
-                      </div>
-                    </div>
-
-                    <!-- Completeness Ring & Stats -->
-                    <div class="grid grid-cols-3 gap-2 mb-4">
-                      <div class="mock-card p-2 flex flex-col items-center justify-center">
-                        <div class="text-[10px] text-gray-400" data-i18n="mock_completeness">Completeness</div>
-                        <div class="font-bold text-lg text-gray-800">88%</div>
-                      </div>
-                      <div class="mock-card p-2 flex flex-col items-center justify-center">
-                        <div class="text-[10px] text-gray-400" data-i18n="mock_documents_cap">Documents</div>
-                        <div class="font-bold text-sm text-gray-800">42/48</div>
-                      </div>
-                      <div class="mock-card p-2 flex flex-col items-center justify-center">
-                        <div class="text-[10px] text-gray-400" data-i18n="mock_requests">Open Requests</div>
-                        <div class="font-bold text-sm text-red-500">3</div>
-                      </div>
-                    </div>
-
-                    <!-- Checklist UI -->
-                    <div class="mock-card p-3 space-y-2">
-                      <div class="text-[10px] font-bold text-gray-500 mb-1" data-i18n="mock_required_docs">REQUIRED DOCUMENT CHECKLIST</div>
-                      
-                      <div class="flex items-center gap-2 text-[10px]">
-                        <div class="w-2 h-2 rounded-full bg-green-500"></div>
-                        <span class="text-gray-700 flex-1" data-i18n="mock_doc_1">Bank Statements</span>
-                        <span class="text-green-600 font-bold" data-i18n="mock_received">Received</span>
-                      </div>
-                      <div class="flex items-center gap-2 text-[10px]">
-                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
-                        <span class="text-gray-700 flex-1" data-i18n="mock_doc_2">General Ledger Export</span>
-                        <span class="text-red-600 font-bold" data-i18n="mock_missing">Missing</span>
-                      </div>
-                      <div class="flex items-center gap-2 text-[10px]">
-                        <div class="w-2 h-2 rounded-full bg-amber-500"></div>
-                        <span class="text-gray-700 flex-1" data-i18n="mock_doc_3">Payroll Summary</span>
-                        <span class="text-amber-600 font-bold" data-i18n="mock_correction">Needs Correction</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Floating Cards -->
-              <div class="floating-card top-[5%] -right-[10%]" id="floatCard1">
-                <div class="w-8 h-8 rounded-md bg-green-100 flex items-center justify-center">
-                  <i class="fa-solid fa-circle-check text-green-600 text-sm"></i>
-                </div>
-                <div>
-                  <div class="text-xs font-bold text-gray-800" data-i18n="float_card_1_title">Package Accepted</div>
-                  <div class="text-[10px] text-gray-400" data-i18n="float_card_1_sub">Auditor approved FY25/26</div>
-                </div>
-              </div>
-
-              <div class="floating-card bottom-[10%] -left-[15%]" id="floatCard2">
-                <div class="w-8 h-8 rounded-md bg-sky-100 flex items-center justify-center">
-                  <i class="fa-solid fa-comment-dots text-sky-600 text-sm"></i>
-                </div>
-                <div>
-                  <div class="text-xs font-bold text-gray-800" data-i18n="float_card_2_title">New Request</div>
-                  <div class="text-[10px] text-gray-400" data-i18n="float_card_2_sub">Please upload GL Export</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="contact__success" id="contactSuccess">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+      <h3 data-en="Request Sent Successfully!" data-si="ඉල්ලීම සාර්ථකව යවන ලදී!" data-ta="கோரிக்கை வெற்றிகரமாக அனுப்பப்பட்டது!">Request Sent Successfully!</h3>
+      <p data-en="Your message has flown to us. We will be in touch shortly." data-si="ඔබේ පණිවිඩය අප වෙත පියාසර කර ඇත. අප ඉක්මනින් සම්බන්ධ වන්නෙමු." data-ta="உங்கள் செய்தி எங்களிடம் பறந்து வந்துள்ளது. நாங்கள் விரைவில் தொடர்பு கொள்வோம்.">Your message has flown to us. We will be in touch shortly.</p>
     </div>
   </div>
 </section>
 
-<!-- =========================================
-     STATS SECTION
-     ========================================= -->
-<section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="text-center reveal">
-        <div class="font-display font-extrabold text-4xl stat-num" data-target="1" data-suffix=" Workspace">0</div>
-        <div class="text-sm text-gray-500 mt-2" data-i18n="stat_1">For Business & Auditor</div>
+<footer class="footer">
+  <a href="#" class="footer__cta" data-cursor="hover"><span class="footer__cta-w" data-en="Start your" data-si="ඔබේ ආරම්භ කරන්න" data-ta="உங்களை தொடங்குங்கள்">Start your</span> <span data-en="free workspace." data-si="නොමිලේ කාර්යසටහන." data-ta="இலவச பணியிடம்.">free workspace.</span></a>
+  <div class="footer__row">
+    <div>
+      <div class="footer__brand"><span class="mark">TL</span>TaxEaseLK</div>
+      <p class="footer__tag" data-en="Corporate Tax Document & Auditor Collaboration Platform." data-si="සංස්ථාපිත බදු ලේඛන සහ නියෝජ්‍ය සහයෝගීතා වේදිකාව." data-ta="நிறுவன வரி ஆவணம் & தணிக்கையாளர் ஒத்துழைப்பு தளம்.">Corporate Tax Document & Auditor Collaboration Platform.</p>
+    </div>
+    <div class="footer__cols">
+      <div class="footer__col">
+        <h4 data-en="Product" data-si="නිෂ්පාදන" data-ta="தயாரிப்பு">Product</h4>
+        <a href="#modules" data-en="Features" data-si="විශේෂාංග" data-ta="அம்சங்கள்">Features</a>
+        <a href="#pricing" data-en="Pricing" data-si="මිල නියමය" data-ta="விலை நிர்ணயம்">Pricing</a>
+        <a href="#contact" data-en="Contact" data-si="සම්බන්ධ වන්න" data-ta="தொடர்பு">Contact</a>
       </div>
-      <div class="text-center reveal" style="transition-delay: 0.1s;">
-        <div class="font-display font-extrabold text-4xl stat-num" data-target="100" data-suffix="%">0</div>
-        <div class="text-sm text-gray-500 mt-2" data-i18n="stat_2">Audit Trail Tracked</div>
+      <div class="footer__col">
+        <h4 data-en="Resources" data-si="සම්පත්" data-ta="வளங்கள்">Resources</h4>
+        <span data-en="Documentation" data-si="ලේඛන" data-ta="ஆவணமாக்கல்">Documentation</span>
+        <span data-en="Help Center" data-si="උපකාර මධ්‍යස්ථානය" data-ta="உதவி மையம்">Help Center</span>
       </div>
-      <div class="text-center reveal" style="transition-delay: 0.2s;">
-        <div class="font-display font-extrabold text-4xl stat-num" data-target="3" data-suffix=" langs">0</div>
-        <div class="text-sm text-gray-500 mt-2" data-i18n="stat_3">Sinhala, Tamil, English</div>
-      </div>
-      <div class="text-center reveal" style="transition-delay: 0.3s;">
-        <div class="font-display font-extrabold text-4xl stat-num" data-target="5" data-suffix=" weeks">0</div>
-        <div class="text-sm text-gray-500 mt-2" data-i18n="stat_4">MVP Delivery Horizon</div>
+      <div class="footer__col">
+        <h4 data-en="Company" data-si="සමාගම" data-ta="நிறுவனம்">Company</h4>
+        <span data-en="Terms of Service" data-si="සේවා කොන්දේසි" data-ta="சேவை விதிமுறைகள்">Terms of Service</span>
+        <a href="mailto:taxeaselk2026@gmail.com" data-en="Contact Support" data-si="සහාය සඳහා සම්බන්ධ වන්න" data-ta="ஆதரவை தொடர்பு கொள்ள">Contact Support</a>
       </div>
     </div>
   </div>
-</section>
-
-<!-- =========================================
-     FEATURES (BENTO GRID)
-     ========================================= -->
-<section id="features" class="py-24 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="max-w-2xl mx-auto text-center mb-16 reveal">
-      <div class="eyebrow mb-3" data-i18n="features_eyebrow">Core Modules</div>
-      <h2 class="font-display font-extrabold text-4xl" data-i18n="features_title">Everything for a controlled handoff.</h2>
-      <p class="mt-4 text-lg text-gray-500" data-i18n="features_sub">V1 is focused purely on document workflow and auditor collaboration—no tax engine, just clarity.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Workspace (wide) -->
-      <div class="bento-card p-8 md:col-span-2 reveal">
-        <div class="flex flex-col md:flex-row gap-8 items-start">
-          <div class="flex-1">
-            <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center mb-5">
-              <i class="fa-solid fa-folder-tree text-sky-600 text-xl"></i>
-            </div>
-            <h3 class="font-display font-bold text-2xl mb-2" data-i18n="feat_1_title">Financial Year Workspace</h3>
-            <p class="text-gray-500 leading-relaxed" data-i18n="feat_1_desc">
-              One controlled place for a company, financial year, document checklist, review status, and history. Replaces scattered email threads and shared folders.
-            </p>
-          </div>
-          <div class="w-full md:w-64 bg-gray-50 rounded-xl p-4 border border-gray-100 space-y-2">
-            <div class="text-xs font-bold text-gray-500">FY 2025/26</div>
-            <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100 text-xs flex justify-between"><span>Bank Statements</span> <i class="fa-solid fa-check text-green-500"></i></div>
-            <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100 text-xs flex justify-between"><span>General Ledger</span> <i class="fa-solid fa-xmark text-red-500"></i></div>
-            <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100 text-xs flex justify-between"><span>Tax Return</span> <i class="fa-solid fa-clock text-amber-500"></i></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Completeness Gate -->
-      <div class="bento-card p-8 reveal" style="transition-delay: 0.1s;">
-        <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-5">
-          <i class="fa-solid fa-clipboard-check text-amber-600 text-xl"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl mb-2" data-i18n="feat_2_title">Completeness Gate</h3>
-        <p class="text-gray-500 leading-relaxed" data-i18n="feat_2_desc">
-          A pre-submission view that highlights missing, unreadable, duplicate, or incomplete items before the package is sent to the auditor.
-        </p>
-      </div>
-
-      <!-- Auditor Review Queue -->
-      <div class="bento-card p-8 reveal" style="transition-delay: 0.2s;">
-        <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-5">
-          <i class="fa-solid fa-user-tie text-green-600 text-xl"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl mb-2" data-i18n="feat_3_title">Auditor Review Queue</h3>
-        <p class="text-gray-500 leading-relaxed" data-i18n="feat_3_desc">
-          Auditors get a clean view of assigned companies, pending packages, open requests, and review progress. No more chasing files via email.
-        </p>
-      </div>
-
-      <!-- Requests & Responses (wide) -->
-      <div class="bento-card p-8 md:col-span-2 reveal" style="transition-delay: 0.3s;">
-        <div class="flex flex-col md:flex-row gap-8 items-center">
-          <div class="flex-1">
-            <div class="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center mb-5">
-              <i class="fa-solid fa-arrow-right-arrow-left text-indigo-600 text-xl"></i>
-            </div>
-            <h3 class="font-display font-bold text-2xl mb-2" data-i18n="feat_4_title">Requests & Responses</h3>
-            <p class="text-gray-500 leading-relaxed" data-i18n="feat_4_desc">
-              Auditor creates a request linked to a specific document. Business responds with a file or comment. Auditor re-reviews and accepts. Every step is tracked.
-            </p>
-          </div>
-          <div class="flex gap-2 w-full md:w-auto">
-             <div class="bg-gray-50 rounded-lg p-3 text-center border border-gray-100 w-24">
-              <div class="text-2xl font-bold text-indigo-600">07</div>
-              <div class="text-[10px] text-gray-400 mt-1" data-i18n="feat_4_stat_1">Workflow Steps</div>
-            </div>
-            <div class="bg-gray-50 rounded-lg p-3 text-center border border-gray-100 w-24">
-              <div class="text-2xl font-bold text-green-600">100%</div>
-              <div class="text-[10px] text-gray-400 mt-1" data-i18n="feat_4_stat_2">Tracked History</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Audit History -->
-      <div class="bento-card p-8 reveal" style="transition-delay: 0.4s;">
-        <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center mb-5">
-          <i class="fa-solid fa-shield-halved text-purple-600 text-xl"></i>
-        </div>
-        <h3 class="font-display font-bold text-xl mb-2" data-i18n="feat_5_title">Audit History</h3>
-        <p class="text-gray-500 leading-relaxed" data-i18n="feat_5_desc">
-          Immutable event trail for uploads, replacements, submissions, requests, responses, and acceptance. One shared source of truth.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- =========================================
-     HOW IT WORKS
-     ========================================= -->
-<section id="how" class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="max-w-2xl mx-auto text-center mb-16 reveal">
-      <div class="eyebrow mb-3" data-i18n="how_eyebrow">Exact Workflow</div>
-      <h2 class="font-display font-extrabold text-4xl" data-i18n="how_title">A controlled handoff from business to auditor.</h2>
-      <p class="mt-4 text-lg text-gray-500" data-i18n="how_sub">Every document and every request has a status, an owner, and a history.</p>
-    </div>
-
-    <div class="relative">
-      <div id="stepProgressLine" class="absolute left-0 top-0 w-0.5 h-0 bg-sky-500 hidden md:block" style="margin-left: 1rem;"></div>
-
-      <div class="grid md:grid-cols-2 gap-x-12 gap-y-8">
-        <div class="step-card reveal md:pr-8">
-          <div class="flex items-center gap-4 mb-3 relative">
-            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">01</div>
-            <h3 class="font-display font-bold text-lg" data-i18n="step_1_title">Upload & Organize</h3>
-          </div>
-          <p class="text-gray-500 text-sm md:ml-14" data-i18n="step_1_desc">Business uploads required documents and organizes them by category within the workspace.</p>
-        </div>
-
-        <div class="step-card reveal md:pl-8" style="transition-delay: 0.1s;">
-          <div class="flex items-center gap-4 mb-3 relative">
-            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">02</div>
-            <h3 class="font-display font-bold text-lg" data-i18n="step_2_title">Checklist & Completeness</h3>
-          </div>
-          <p class="text-gray-500 text-sm md:ml-14" data-i18n="step_2_desc">Business uses the checklist to identify missing or incomplete items before sending.</p>
-        </div>
-
-        <div class="step-card reveal md:pr-8" style="transition-delay: 0.2s;">
-          <div class="flex items-center gap-4 mb-3 relative">
-            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">03</div>
-            <h3 class="font-display font-bold text-lg" data-i18n="step_3_title">Send Package</h3>
-          </div>
-          <p class="text-gray-500 text-sm md:ml-14" data-i18n="step_3_desc">Business sends the package to the assigned auditor when ready for review.</p>
-        </div>
-
-        <div class="step-card reveal md:pl-8" style="transition-delay: 0.3s;">
-          <div class="flex items-center gap-4 mb-3 relative">
-            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">04</div>
-            <h3 class="font-display font-bold text-lg" data-i18n="step_4_title">Auditor Reviews</h3>
-          </div>
-          <p class="text-gray-500 text-sm md:ml-14" data-i18n="step_4_desc">Auditor reviews submitted files, adds comments, and checks checklist items.</p>
-        </div>
-
-        <div class="step-card reveal md:pr-8" style="transition-delay: 0.4s;">
-          <div class="flex items-center gap-4 mb-3 relative">
-            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">05</div>
-            <h3 class="font-display font-bold text-lg" data-i18n="step_5_title">Request & Respond</h3>
-          </div>
-          <p class="text-gray-500 text-sm md:ml-14" data-i18n="step_5_desc">Auditor requests missing/corrected docs. Business uploads response and replies.</p>
-        </div>
-
-        <div class="step-card reveal md:pl-8" style="transition-delay: 0.5s;">
-          <div class="flex items-center gap-4 mb-3 relative">
-            <div class="w-10 h-10 rounded-full bg-gray-100 border-2 border-white shadow-sm flex items-center justify-center text-sky-500 font-bold z-10">06</div>
-            <h3 class="font-display font-bold text-lg" data-i18n="step_6_title">Re-review & Accept</h3>
-          </div>
-          <p class="text-gray-500 text-sm md:ml-14" data-i18n="step_6_desc">Auditor re-reviews the response and accepts the package when complete.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================
-     PRICING
-     ========================================= -->
-<section id="pricing" class="py-24 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="max-w-2xl mx-auto text-center mb-12 reveal">
-      <div class="eyebrow mb-3" data-i18n="price_eyebrow">Pricing Model</div>
-      <h2 class="font-display font-extrabold text-4xl" data-i18n="price_title">Aligned to value and ownership.</h2>
-      <p class="mt-4 text-lg text-gray-500" data-i18n="price_sub">Two subscriptions because the business and the auditor receive different value.</p>
-
-      <div class="inline-flex items-center gap-4 mt-8 p-1 bg-gray-100 rounded-lg">
-        <button id="userBtn" class="px-4 py-1.5 rounded-md text-sm font-medium bg-white shadow-sm text-gray-900 transition-all" data-i18n="price_toggle_1">Business</button>
-        <button id="auditorBtn" class="px-4 py-1.5 rounded-md text-sm font-medium text-gray-500 transition-all" data-i18n="price_toggle_2">Auditor</button>
-      </div>
-    </div>
-
-    <!-- BUSINESS PLAN -->
-    <div id="userPlans" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Free -->
-      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2">
-        <div class="text-sm font-bold uppercase tracking-wide text-gray-400">Free</div>
-        <div class="font-display font-extrabold text-4xl mt-2">Rs 0</div>
-        <p class="text-xs text-gray-500 mt-1">forever</p>
-        <p class="text-sm text-gray-500 mt-4 mb-6">For individuals</p>
-        <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>1 company workspace</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>1 GB storage</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>1 user</li>
-        </ul>
-        <a href="https://taxeaselk.vercel.app/role" class="btn-secondary w-full justify-center">Get Started
-        </a>
-      </div>
-
-      <!-- Starter -->
-      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2" style="transition-delay: 0.1s;">
-        <div class="text-sm font-bold uppercase tracking-wide text-sky-600">Starter</div>
-        <div class="font-display font-extrabold text-4xl mt-2">Rs 2,900</div>
-        <p class="text-xs text-gray-500 mt-1">per Month</p>
-        <p class="text-sm text-gray-500 mt-4 mb-6">For a single company</p>
-        <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>1 company workspace</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>5GB storage</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Up to 3 team members</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Full features: checklist, document status, chat with your auditor, activity history</li>
-        </ul>
-        <a href="#" class="btn-secondary w-full justify-center">Buy Now</a>
-      </div>
-
-      <!-- Business (Popular) -->
-      <div class="p-8 flex flex-col reveal bg-gray-900 text-white rounded-2xl relative shadow-2xl lg:scale-105 lg:-translate-y-2" style="transition-delay: 0.2s;">
-        <div class="absolute top-0 right-0 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-2xl">POPULAR</div>
-        <div class="text-sm font-bold uppercase tracking-wide text-sky-400">Growth</div>
-        <div class="font-display font-extrabold text-4xl mt-2">Rs 5,900</div>
-        <p class="text-xs text-gray-400 mt-1">per Month</p>
-        <p class="text-sm text-gray-400 mt-4 mb-6">For businesses juggling more than one company or more than one year at once. </p>
-        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Up to 3 workspaces</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Up to 8 team members</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>20GB storage</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Priority email Support</li>
-        </ul>
-        <a href="#" class="btn-primary w-full justify-center bg-white text-gray-900 hover:bg-gray-100">Buy Now</a>
-      </div>
-
-      <!-- Enterprise -->
-      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2" style="transition-delay: 0.3s;">
-        <div class="text-sm font-bold uppercase tracking-wide text-gray-400">Enterprise</div>
-        <div class="font-display font-extrabold text-4xl mt-2">Rs 11,900</div>
-        <p class="text-xs text-gray-400 mt-1">per month</p>
-        <p class="text-sm text-gray-400 mt-4 mb-6">For company groups or larger businesses with many entities.</p>
-        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Unlimited workspaces</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>100GB Storage</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Unlimited team members</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Dedicated onboarding + faster support</li>
-        </ul>
-        <a href="#" class="btn-secondary w-full justify-center">Buy Now</a>
-      </div>
-    </div>
-
-    <!-- AUDITOR PLAN -->
-    <div id="auditorPlans" class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto hidden">
-      <!-- Auditor solo -->
-      <div class="bento-card p-8 flex flex-col reveal hover:translate-y-2">
-        <div class="text-sm font-bold uppercase tracking-wide text-sky-600">Auditor Solo</div>
-        <div class="font-display font-extrabold text-4xl mt-2">Rs 6,900</div>
-        <p class="text-xs text-gray-400 mt-1">per month</p>
-        <p class="text-sm text-gray-400 mt-4 mb-6">For an individual auditor or tax professional.</p>
-        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Up to 15 client companies</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>1 reviewer login</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>Full review tools: queue, requests, comments, accept package</li>
-        </ul>
-        <a href="#" class="btn-secondary w-full justify-center">Buy Now</a>
-      </div>
-
-      <!-- Auditor firm -->
-      <div class="p-8 flex flex-col reveal bg-gray-900 text-white rounded-2xl relative shadow-2xl lg:scale-105 lg:-translate-y-2">
-        <div class="absolute top-0 right-0 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-2xl">POPULAR</div>
-        <div class="text-sm font-bold uppercase tracking-wide text-sky-400">Auditor Firm  </div>
-        <div class="font-display font-extrabold text-4xl mt-2">Rs 16,900</div>
-        <p class="text-xs text-gray-400 mt-1">per month</p>
-        <p class="text-sm text-gray-400 mt-4 mb-6">For accounting firms with a team.</p>
-        <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Unlimited client companies</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Up to 10 reviewer logins</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Assign clients to different reviewers, firm-wide reporting, priority support</li>
-          <li class="flex items-start gap-2"><i class="fa-solid fa-check text-sky-400 mt-0.5"></i>Priority Support</li>
-        </ul>
-        <a href="#" class="btn-primary w-full justify-center bg-white text-gray-900 hover:bg-gray-100">Buy Now</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- =========================================
-     FAQ
-     ========================================= -->
-<section id="faq" class="py-24 bg-white">
-  <div class="max-w-3xl mx-auto px-6 lg:px-8">
-    <div class="text-center mb-12 reveal">
-      <div class="eyebrow mb-3" data-i18n="faq_eyebrow">FAQ</div>
-      <h2 class="font-display font-extrabold text-4xl" data-i18n="faq_title">Boundaries, answered.</h2>
-    </div>
-
-    <div class="reveal">
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="font-semibold text-lg text-gray-800" data-i18n="faq_q1">Does V1 calculate my corporate tax?</span>
-          <i class="fa-solid fa-plus faq-icon"></i>
-        </div>
-        <div class="faq-a" data-i18n="faq_a1">No. V1 is deliberately not a tax engine. It focuses on collecting, organizing, and reviewing the documents required for tax work. Tax calculation is on the V2 roadmap.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="font-semibold text-lg text-gray-800" data-i18n="faq_q2">Can I submit returns to the IRD through TaxEaseLK?</span>
-          <i class="fa-solid fa-plus faq-icon"></i>
-        </div>
-        <div class="faq-a" data-i18n="faq_a2">No, return generation and e-filing are explicitly out of scope for V1. The platform stops at auditor acceptance of the document package.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="font-semibold text-lg text-gray-800" data-i18n="faq_q3">How does the auditor collaboration work?</span>
-          <i class="fa-solid fa-plus faq-icon"></i>
-        </div>
-        <div class="faq-a" data-i18n="faq_a3">You submit a complete package, the auditor reviews it, requests missing or corrected docs if needed via the request-response loop, and accepts the package when complete. Everything is tracked in history.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-q">
-          <span class="font-semibold text-lg text-gray-800" data-i18n="faq_q4">Are other tax types supported?</span>
-          <i class="fa-solid fa-plus faq-icon"></i>
-        </div>
-        <div class="faq-a" data-i18n="faq_a4">No. V1 handles only the corporate tax document workflow for Pvt Ltd companies. VAT, PAYE, and other taxes are not supported in this version.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================
-     CONTACT US / FORM SECTION
-     ========================================= -->
-<section id="contact" class="py-24 bg-gray-50 relative overflow-hidden">
-  <div class="orb orb-1" style="top: 10%; right: 5%; opacity: 0.3;"></div>
-  <div class="orb orb-2" style="bottom: 0; left: 0; opacity: 0.3;"></div>
-
-  <div class="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-      <div class="reveal">
-        <div class="eyebrow mb-3" data-i18n="contact_eyebrow">Contact Us</div>
-        <h2 class="font-display font-extrabold text-4xl" data-i18n="contact_title">Ready to organize your tax workflow?</h2>
-        <p class="mt-4 text-lg text-gray-500" data-i18n="contact_sub">Fill out the form, and our team will reach out to set up your workspace and get your auditor connected.</p>
-        
-        <div class="mt-8 space-y-4">
-          <div class="flex items-center gap-4 text-gray-600">
-            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100">
-              <i class="fa-solid fa-envelope text-sky-600"></i>
-            </div>
-            <span>taxeaselk2026@gmail.com</span>
-          </div>
-          <div class="flex items-center gap-4 text-gray-600">
-            <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100">
-              <i class="fa-solid fa-location-dot text-sky-600"></i>
-            </div>
-            <span data-i18n="contact_location">Colombo, Sri Lanka</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 reveal" style="transition-delay: 0.2s;">
-        <form id="contactForm" action="https://formsubmit.co/ajax/taxeaselk2026@gmail.com" method="POST" class="space-y-5">
-          <input type="hidden" name="_subject" value="New TaxEaseLK Contact Request">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="form_name">Name</label>
-            <input type="text" name="Name" required class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition" placeholder="John Doe">
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="form_email">Email</label>
-            <input type="email" name="Email" required class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition" placeholder="you@company.lk">
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="form_phone">Phone Number</label>
-            <input type="tel" name="Phone" required class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition" placeholder="+94 77 123 4567">
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="form_business">Business Name (Optional)</label>
-            <input type="text" name="Business" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none transition" placeholder="ABC (Private) Limited">
-          </div>
-          
-          <button type="submit" class="btn-primary w-full justify-center">
-            <span data-i18n="form_submit">Send Request</span>
-            <i class="fa-solid fa-paper-plane text-xs"></i>
-          </button>
-          
-          <p id="formStatus" class="text-sm text-center hidden"></p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================
-     FOOTER
-     ========================================= -->
-<footer class="bg-white border-t border-gray-200">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-12">
-    <div class="grid md:grid-cols-4 gap-8">
-      <div>
-        <div class="flex items-center gap-2.5 mb-4">
-          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--text);">
-            <i class="fa-solid fa-folder-tree text-white text-sm"></i>
-          </div>
-          <span class="font-display font-bold text-lg">TaxEase<span style="color:var(--accent);">LK</span></span>
-        </div>
-        <p class="text-sm text-gray-500" data-i18n="footer_tagline">Corporate Tax Document & Auditor Collaboration Platform.</p>
-      </div>
-      <div>
-        <h4 class="font-bold text-sm text-gray-900 mb-4" data-i18n="footer_product">Product</h4>
-        <ul class="space-y-2 text-sm text-gray-500">
-          <li><a href="#features" class="hover:text-gray-900 transition" data-i18n="nav_features">Features</a></li>
-          <li><a href="#pricing" class="hover:text-gray-900 transition" data-i18n="nav_pricing">Pricing</a></li>
-          <li><a href="#contact" class="hover:text-gray-900 transition" data-i18n="nav_contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-sm text-gray-900 mb-4" data-i18n="footer_resources">Resources</h4>
-        <ul class="space-y-2 text-sm text-gray-500">
-          <li><a href="#" class="hover:text-gray-900 transition" data-i18n="footer_docs">Documentation</a></li>
-          <li><a href="#" class="hover:text-gray-900 transition" data-i18n="footer_help">Help Center</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-bold text-sm text-gray-900 mb-4" data-i18n="footer_company">Company</h4>
-        <ul class="space-y-2 text-sm text-gray-500">
-          <li><a href="#" class="hover:text-gray-900 transition" data-i18n="footer_terms">Terms of Service</a></li>
-          <li><a href="#contact" class="hover:text-gray-900 transition" data-i18n="footer_support">Contact Support</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="mt-12 pt-8 border-t border-gray-200 flex justify-between items-center">
-      <p class="text-xs text-gray-500">© 2026 TaxEaseLK. Built in Sri Lanka.</p>
-      <div class="flex gap-4 text-gray-400"></div>
-    </div>
-  </div>
+  <p class="footer__fine">© 2026 TaxEaseLK. <span data-en="Built in Sri Lanka." data-si="ශ්‍රී ලංකාවේ නිර්මාණය." data-ta="இலங்கையில் கட்டப்பட்டது.">Built in Sri Lanka.</span></p>
 </footer>
 
-<!-- Custom JavaScript -->
-<script src="main.js"></script>
+<button class="to-top" id="toTop" aria-label="Scroll to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
 </body>
-</html>
