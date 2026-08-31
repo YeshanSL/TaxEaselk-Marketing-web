@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TaxEaseLK — Corporate Tax Document & Auditor Collaboration</title>
 <meta name="description" content="A trusted workspace for Sri Lankan Pvt Ltd companies to collect, organize, and hand off corporate tax documents to auditors — without the email chaos.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237c3aed'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-weight='800' font-size='28' fill='white' text-anchor='middle'%3ETL%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="weblogo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Inter+Tight:wght@500;600;700;800;900&family=Noto+Sans+Sinhala:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&display=swap" rel="stylesheet">
@@ -32,7 +32,10 @@
 
 <header class="nav" id="nav">
   <span class="nav__glass" aria-hidden="true"><i></i></span>
-  <a href="#" class="brand" data-cursor="hover"><span class="mark">TL</span>TaxEase<em>LK</em></a>
+ <a href="#" class="brand" data-cursor="hover">
+  <img src="weblogo.png" alt="TaxEaseLK Logo" style="height: 32px; width: auto; vertical-align: middle;">
+  <span>TaxEase<em>LK</em></span>
+</a>
   <nav class="nav__links" aria-label="Primary">
     <a href="#modules" data-cursor="hover" data-en="Features" data-si="විශේෂාංග" data-ta="அம்சங்கள்">Features</a>
     <a href="#flow" data-cursor="hover" data-en="How it Works" data-si="ක්‍රියාත්මක වන ආකාරය" data-ta="எப்படி வேலை செய்கிறது">How it Works</a>
@@ -92,7 +95,7 @@
         <div class="wmock__dots">
           <span class="wmock__dot"></span><span class="wmock__dot"></span><span class="wmock__dot"></span>
         </div>
-        <span class="wmock__url">app.taxeaselk.lk/workspace</span>
+        <span class="wmock__url">taxeaselk.vercel.app/dashboard</span>
         <div style="width: 40px;"></div>
       </div>
       <div class="wmock__body">
@@ -248,7 +251,7 @@
         <canvas id="canvas" style="width: 100%; height: 180px; display: block; position: absolute; top: 0; left: 0;"></canvas>
         <div id="realtext" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.35s ease;">
           <h2 style="font-family: var(--display), Arial, sans-serif; font-weight: 700; font-size: 42px; line-height: 1.12; margin: 0; letter-spacing: -0.01em;">
-            <span style="color: var(--ink);" data-en="Snap a receipt.<br>Let AI do the<br>" data-si="ක්ෂුද්‍ර පිටපතක් ගන්න.<br>AI එය කරන්න<br>දෙන්න." data-ta="ரசீதை ஸ்னாப் செய்யவும்.<br>AI கணிதத்தை<br>செய்யட்டும்.">Snap a receipt.<br>Let AI do the<br></span><span style="color: var(--orange);" data-en="math." data-si="ගණනය." data-ta="கணக்கு.">math.</span>
+            <span style="color: var(--ink);" data-en="Snap a receipt.<br>Let AI do the<br>" data-si="ඔබේ ලේඛන.<br>ඔබේ විගණක<br>" data-ta="ரசீதை ஸ்னாப் செய்யவும்.<br>AI கணிதத்தை<br>செய்யட்டும்.">Your Documents.<br>Your Auditor<br></span><span style="color: var(--orange);" data-en="math." data-si="එකම වේදිකාවක්." data-ta="ஒரே தளம்.">One Platform.</span>
           </h2>
         </div>
       </div>
