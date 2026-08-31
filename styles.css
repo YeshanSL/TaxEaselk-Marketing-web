@@ -115,31 +115,24 @@ section { position: relative; z-index: 2; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-/* Custom Professional Hand Cursor */
-.cursor {
-  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
-  margin: -3px 0 0 -10px; 
-  transition: opacity 0.3s;
-  will-change: transform;
+
+body {
+  cursor: none; 
 }
-.cursor svg {
-  width: 24px; height: 24px; display: block;
-  transition: transform 0.25s var(--spring);
+
+/* Add this class to your CSS file */
+.custom-cursor {
+  width: 30px; 
+  height: 30px;
+  background-color: #000080; /* This is Navy Blue */
+  border-radius: 50%; 
+  position: fixed; 
+  pointer-events: none; 
+  z-index: 9999; 
+  transform: translate(-50%, -50%); 
+  mix-blend-mode: difference; /* Optional: makes it visible on both dark and light backgrounds */
 }
-.cursor svg g {
-  fill: var(--bg); 
-  stroke: var(--ink); 
-  stroke-width: 1.5;
-  stroke-linecap: round; 
-  stroke-linejoin: round;
-  transition: fill 0.3s, stroke 0.3s;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
-}
-.cursor.is-hover svg { transform: scale(1.15); }
-.cursor.is-hover svg g {
-  fill: rgba(var(--orange-rgb), 0.15);
-  stroke: var(--orange);
-}
+
 body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor summary { cursor: none; }
 
 .loader { position: fixed; inset: 0; z-index: 9000; background: var(--bg); display: grid; place-content: center; gap: 18px; transition: opacity 0.8s var(--ease), visibility 0.8s; }
