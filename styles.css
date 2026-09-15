@@ -52,7 +52,7 @@
   --display: "Inter Tight", "Noto Sans Sinhala", "Noto Sans Tamil", var(--font);
 }
 html[data-theme="dark"] {
-  --orange: #a78bfa;       /* Lighter violet for dark mode contrast */
+  --orange: #2323a1;       /* Lighter violet for dark mode contrast */
   --orange-rgb: 167, 139, 250;
   --peri: rgba(255, 255, 255, 0.4);
   --peri-ink: rgba(255, 255, 255, 0.5);
