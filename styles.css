@@ -259,16 +259,17 @@ body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor summ
 .modules__head { text-align: center; max-width: 720px; margin: 0 auto clamp(40px, 6vh, 70px); }
 .modules__head h2 { font-size: clamp(36px, 5vw, 72px); }
 .modules__head p { color: var(--muted); font-size: clamp(16px, 1.2vw, 19px); margin: 20px 0 0; }
-.modgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-.modcard { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 30px 28px; box-shadow: var(--shadow-sm); transition: transform 0.4s var(--spring), box-shadow 0.4s var(--ease); }
+.modgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+.modcard { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 30px 28px; box-shadow: var(--shadow-sm); transition: transform 0.4s var(--spring), box-shadow 0.4s var(--ease); }
 .modcard:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-.modcard--wide { grid-column: span 3; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; align-items: center; }
+.modcard--wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; align-items: center; }
+.modcard--wide > div:first-child { display: flex; flex-direction: column; }
 .modcard .modicon { width: 44px; height: 44px; border-radius: 12px; background: rgba(var(--orange-rgb), 0.1); color: var(--orange); display: grid; place-items: center; margin-bottom: 18px; }
 .modcard h3 { font-family: var(--display); font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
 .modcard p { color: var(--muted); font-size: 15px; margin: 0; }
 .modcard__tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .modcard__tags span { font-size: 12.5px; font-weight: 600; padding: 8px 14px; border-radius: 100px; background: var(--bg-2); border: 1px solid var(--line); }
-@media (max-width: 900px) { .modgrid { grid-template-columns: 1fr; } .modcard--wide { grid-template-columns: 1fr; grid-column: span 1; } }
+@media (max-width: 900px) { .modgrid { grid-template-columns: 1fr; } .modcard--wide { grid-template-columns: 1fr; grid-column: 1 / -1; } }
 
 .flow { padding: clamp(50px, 9vh, 120px) var(--pad); max-width: var(--wrap); margin-inline: auto; }
 .flow__head { text-align: center; max-width: 720px; margin: 0 auto clamp(40px, 6vh, 70px); }
@@ -284,6 +285,18 @@ body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor summ
 
 /* ---- Particle Text Assembly Section ---- */
 .particle-section { padding: clamp(40px, 6vh, 80px) var(--pad); max-width: var(--wrap); margin-inline: auto; }
+.pt-stage { position: relative; overflow: hidden; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow-lg); border-radius: var(--r-lg); padding: clamp(28px, 4vw, 52px); min-height: 340px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(24px, 4vw, 50px); align-items: center; cursor: pointer; }
+/* Canvas spans the entire card so the dust scatters edge to edge */
+.pt-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 1; transition: opacity 0.4s ease; }
+.pt-stage > .particle-area, .pt-stage > .extract-mockup { position: relative; z-index: 2; }
+.pt-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--peri-ink); margin: 0 0 1.25rem; text-transform: uppercase; }
+.pt-realtext { opacity: 0; transition: opacity 0.4s ease; }
+.pt-headline { font-family: var(--display), Arial, sans-serif; font-weight: 700; font-size: clamp(30px, 3.4vw, 42px); line-height: 1.12; margin: 0; letter-spacing: -0.01em; }
+.pt-ink { color: var(--ink); }
+.pt-accent { color: var(--orange); }
+.pt-caption { font-size: 13px; color: var(--muted); margin: 1.25rem 0 0; line-height: 1.6; max-width: 400px; opacity: 0; transition: opacity 0.6s ease 0.15s; }
+.pt-hint { font-size: 12px; color: var(--muted); margin: 1rem 0 0; opacity: 0; transition: opacity 0.4s ease 0.3s; }
+@media (max-width: 900px) { .pt-stage { grid-template-columns: 1fr; min-height: 280px; } }
 
 .pricing { padding: clamp(40px, 6vh, 80px) var(--pad) clamp(60px, 10vh, 120px); max-width: var(--wrap); margin-inline: auto; }
 .pricing__head { text-align: center; margin-bottom: clamp(30px, 5vh, 54px); }

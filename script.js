@@ -182,144 +182,153 @@
     var caption = document.getElementById('caption');
     var hint = document.getElementById('hint');
     var realtext = document.getElementById('realtext');
+    var headline = realtext ? realtext.querySelector('.pt-headline') : null;
     var extractMockup = document.getElementById('extractMockup');
-    var dpr = window.devicePixelRatio || 1;
-    var lines = ['Snap a receipt.', 'Let AI do the', 'math.'];
+    if (!stage || !headline) return;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var lines = ['Your Documents.', 'Your Auditor.', 'One Platform.'];
     var particles = [];
     var playing = false;
     var done = false;
+    var ready = false;
     var startTime = 0;
-    var duration = 1300;
-    var fontSizePx = 46;
-
-    function getCssVar(name) {
-      var c = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return c || (name === '--ink' ? '#000' : '#7c3aed');
-    }
+    var duration = 1600;
+    var MAX_PARTICLES = 9000;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
+    /* Canvas now covers the ENTIRE stage card, so particles can scatter across it. */
     function sizeCanvas() {
-      var rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      var rect = stage.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.round(rect.width * dpr));
+      canvas.height = Math.max(1, Math.round(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       return rect;
     }
 
-    function buildTargets(rect) {
+    /* Read the real <h2> styles so the particle text lands exactly on top of it. */
+    function headlineSpec(stageRect) {
+      var cs = getComputedStyle(headline);
+      var hRect = headline.getBoundingClientRect();
+      var fontSize = parseFloat(cs.fontSize) || 42;
+      var lineHeight = parseFloat(cs.lineHeight);
+      if (!lineHeight || isNaN(lineHeight)) lineHeight = fontSize * 1.12;
+      var inkEl = headline.querySelector('.pt-ink');
+      var accentEl = headline.querySelector('.pt-accent');
+      return {
+        font: (cs.fontWeight || '700') + ' ' + fontSize + 'px ' + cs.fontFamily,
+        letterSpacing: cs.letterSpacing && cs.letterSpacing !== 'normal' ? cs.letterSpacing : '0px',
+        fontSize: fontSize,
+        lineHeight: lineHeight,
+        x: hRect.left - stageRect.left,
+        y: hRect.top - stageRect.top,
+        colors: [
+          inkEl ? getComputedStyle(inkEl).color : '#111',
+          inkEl ? getComputedStyle(inkEl).color : '#111',
+          accentEl ? getComputedStyle(accentEl).color : '#f97316'
+        ]
+      };
+    }
+
+    /* Render the headline offscreen (in stage coordinates) and harvest pixels. */
+    function buildTargets(stageRect) {
+      var spec = headlineSpec(stageRect);
+      var w = Math.max(1, Math.round(stageRect.width));
+      var h = Math.max(1, Math.round(stageRect.height));
       var off = document.createElement('canvas');
-      off.width = rect.width;
-      off.height = rect.height;
+      off.width = w;
+      off.height = h;
       var octx = off.getContext('2d');
-      fontSizePx = rect.width < 420 ? 32 : 42;
-      octx.font = '700 ' + fontSizePx + 'px "Inter Tight", Arial, sans-serif';
-      octx.textBaseline = 'top';
-      var lineHeight = fontSizePx * 1.12;
-      var totalHeight = lineHeight * lines.length;
-      var startY = Math.max(4, (rect.height - totalHeight) / 2);
+      octx.font = spec.font;
+      if ('letterSpacing' in octx) octx.letterSpacing = spec.letterSpacing;
+      octx.textBaseline = 'alphabetic';
 
-      var inkColor = getCssVar('--ink');
-      var orangeColor = getCssVar('--orange');
+      for (var i = 0; i < lines.length; i++) {
+        var m = octx.measureText(lines[i]);
+        var asc = m.fontBoundingBoxAscent || spec.fontSize * 0.8;
+        var desc = m.fontBoundingBoxDescent || spec.fontSize * 0.2;
+        var halfLeading = (spec.lineHeight - (asc + desc)) / 2;
+        octx.fillStyle = spec.colors[i];
+        octx.fillText(lines[i], spec.x, spec.y + i * spec.lineHeight + halfLeading + asc);
+      }
 
-      octx.fillStyle = inkColor;
-      octx.fillText(lines[0], 4, startY);
-      octx.fillText(lines[1], 4, startY + lineHeight);
-      octx.fillStyle = orangeColor;
-      octx.fillText(lines[2], 4, startY + 2 * lineHeight);
-
-      var img = octx.getImageData(0, 0, off.width, off.height).data;
+      var img = octx.getImageData(0, 0, w, h).data;
       var pts = [];
-      var step = 1;
-      for (var y = 0; y < off.height; y += step) {
-        for (var x = 0; x < off.width; x += step) {
-          var idx = (y * off.width + x) * 4;
-          var alpha = img[idx + 3];
-          if (alpha > 90) {
-            pts.push({ 
-              x: x, y: y, 
-              r: img[idx], 
-              g: img[idx + 1], 
-              b: img[idx + 2] 
-            });
+      for (var y = 0; y < h; y++) {
+        for (var x = 0; x < w; x++) {
+          var idx = (y * w + x) * 4;
+          if (img[idx + 3] > 90) {
+            pts.push({ x: x, y: y, r: img[idx], g: img[idx + 1], b: img[idx + 2] });
           }
         }
       }
       return pts;
     }
 
-    function initParticles(rect) {
-      var targets = buildTargets(rect);
-      var maxParticles = 5200;
-      if (targets.length > maxParticles) {
-        var stride = targets.length / maxParticles;
+    function initParticles(stageRect) {
+      var targets = buildTargets(stageRect);
+      if (targets.length > MAX_PARTICLES) {
+        var stride = targets.length / MAX_PARTICLES;
         var sampled = [];
-        for (var i = 0; i < maxParticles; i++) {
-          sampled.push(targets[Math.floor(i * stride)]);
-        }
+        for (var i = 0; i < MAX_PARTICLES; i++) sampled.push(targets[Math.floor(i * stride)]);
         targets = sampled;
       }
+      /* Scatter the starting dust across the WHOLE card, edge to edge. */
       particles = targets.map(function(t) {
         return {
-          x: Math.random() * rect.width,
-          y: Math.random() * rect.height,
+          x: Math.random() * stageRect.width,
+          y: Math.random() * stageRect.height,
           tx: t.x,
           ty: t.y,
           sx: 0,
           sy: 0,
-          delay: Math.random() * 0.15,
-          r: t.r,
-          g: t.g,
-          b: t.b
+          delay: Math.random() * 0.25,
+          r: t.r, g: t.g, b: t.b
         };
+      });
+      ready = particles.length > 0;
+    }
+
+    function drawScattered(stageRect) {
+      ctx.clearRect(0, 0, stageRect.width, stageRect.height);
+      particles.forEach(function(p) {
+        ctx.fillStyle = 'rgb(' + p.r + ',' + p.g + ',' + p.b + ')';
+        ctx.fillRect(p.x, p.y, 1.3, 1.3);
       });
     }
 
-    function drawScattered(rect) {
-      ctx.clearRect(0, 0, rect.width, rect.height);
-      particles.forEach(function(p) {
-        ctx.fillStyle = 'rgb(' + p.r + ',' + p.g + ',' + p.b + ')';
-        ctx.fillRect(p.x, p.y, 1.1, 1.1);
-      });
+    function finish() {
+      playing = false;
+      done = true;
+      realtext.style.opacity = '1';
+      canvas.style.opacity = '0';
+      if (caption) caption.style.opacity = '1';
+      if (hint) hint.style.opacity = '1';
+      if (extractMockup) extractMockup.classList.add('in');
     }
 
     function frame(now) {
       if (!playing) return;
-      var rect = canvas.getBoundingClientRect();
-      var elapsed = now - startTime;
-      var globalT = Math.min(elapsed / duration, 1);
+      var rect = stage.getBoundingClientRect();
+      var globalT = Math.min((now - startTime) / duration, 1);
       ctx.clearRect(0, 0, rect.width, rect.height);
       particles.forEach(function(p) {
         var local = Math.min(Math.max((globalT - p.delay) / (1 - p.delay), 0), 1);
         var e = easeOutCubic(local);
-        var cx = p.sx + (p.tx - p.sx) * e;
-        var cy = p.sy + (p.ty - p.sy) * e;
-        var size = 1.1 + e * 0.5;
+        var size = 1.3 + e * 0.4;
         ctx.fillStyle = 'rgb(' + p.r + ',' + p.g + ',' + p.b + ')';
-        ctx.fillRect(cx, cy, size, size);
+        ctx.fillRect(p.sx + (p.tx - p.sx) * e, p.sy + (p.ty - p.sy) * e, size, size);
       });
-      if (globalT < 1) {
-        requestAnimationFrame(frame);
-      } else {
-        playing = false;
-        done = true;
-        realtext.style.opacity = '1';
-        setTimeout(function() {
-          canvas.style.opacity = '0';
-          canvas.style.transition = 'opacity 0.3s ease';
-        }, 250);
-        caption.style.opacity = '1';
-        hint.style.opacity = '0';
-        if (extractMockup) extractMockup.classList.add('in');
-      }
+      if (globalT < 1) requestAnimationFrame(frame);
+      else finish();
     }
 
     function play() {
-      if (playing || done) return;
-      particles.forEach(function(p) {
-        p.sx = p.x;
-        p.sy = p.y;
-      });
+      if (playing || done || !ready) return;
+      if (reduceMotion) { finish(); return; }
+      particles.forEach(function(p) { p.sx = p.x; p.sy = p.y; });
       playing = true;
       startTime = performance.now();
       requestAnimationFrame(frame);
@@ -329,80 +338,76 @@
       done = false;
       playing = false;
       realtext.style.opacity = '0';
-      caption.style.opacity = '0';
-      hint.style.opacity = '1';
-      canvas.style.transition = 'none';
+      if (caption) caption.style.opacity = '0';
+      if (hint) hint.style.opacity = '0';
       canvas.style.opacity = '1';
       if (extractMockup) extractMockup.classList.remove('in');
       var rect = sizeCanvas();
       initParticles(rect);
       drawScattered(rect);
     }
-    
-    function updateParticleColors() {
-      var rect = canvas.getBoundingClientRect();
-      var off = document.createElement('canvas');
-      off.width = rect.width;
-      off.height = rect.height;
-      var octx = off.getContext('2d');
-      fontSizePx = rect.width < 420 ? 32 : 42;
-      octx.font = '700 ' + fontSizePx + 'px "Inter Tight", Arial, sans-serif';
-      octx.textBaseline = 'top';
-      var lineHeight = fontSizePx * 1.12;
-      var totalHeight = lineHeight * lines.length;
-      var startY = Math.max(4, (rect.height - totalHeight) / 2);
 
-      octx.fillStyle = getCssVar('--ink');
-      octx.fillText(lines[0], 4, startY);
-      octx.fillText(lines[1], 4, startY + lineHeight);
-      octx.fillStyle = getCssVar('--orange');
-      octx.fillText(lines[2], 4, startY + 2 * lineHeight);
-
-      var img = octx.getImageData(0, 0, off.width, off.height).data;
-      particles.forEach(function(p) {
-        var px = Math.round(p.tx);
-        var py = Math.round(p.ty);
-        if (px >= 0 && px < off.width && py >= 0 && py < off.height) {
-          var idx = (py * off.width + px) * 4;
-          p.r = img[idx];
-          p.g = img[idx + 1];
-          p.b = img[idx + 2];
-        }
-      });
-      if (!playing && !done) {
-        drawScattered(rect);
-      }
+    /* Auto-assemble the moment the card scrolls into view. */
+    var hasAutoPlayed = false;
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !hasAutoPlayed) {
+            hasAutoPlayed = true;
+            setTimeout(play, 180);
+          }
+        });
+      }, { threshold: 0.45 });
+      io.observe(stage);
+    } else {
+      setTimeout(function() { hasAutoPlayed = true; play(); }, 600);
     }
 
+    var resizeTimer;
     window.addEventListener('resize', function() {
-      if (!playing) reset();
-    });
-
-    stage.addEventListener('click', function() {
-      if (done) {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function() {
+        if (playing) return;
+        var wasDone = done;
         reset();
-      } else if (!playing) {
-        play();
-      }
+        if (wasDone) { hasAutoPlayed = true; finish(); }
+      }, 180);
     });
 
-    const cursor = document.querySelector('.custom-cursor');
+    /* Click to replay once it has assembled. */
+    stage.addEventListener('click', function() {
+      if (playing) return;
+      if (done) { reset(); hasAutoPlayed = true; play(); }
+      else play();
+    });
 
-document.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-
-    var observer = new MutationObserver(function(mutations) {
+    /* Re-tint the dust when the colour theme flips. */
+    var themeObserver = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
-        if (mutation.attributeName === 'data-theme') {
-          updateParticleColors();
+        if (mutation.attributeName === 'data-theme' && !playing) {
+          var wasDone = done;
+          reset();
+          if (wasDone) finish();
         }
       });
     });
-    observer.observe(document.documentElement, { attributes: true });
+    themeObserver.observe(document.documentElement, { attributes: true });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function() { if (!playing && !done) reset(); });
+    }
 
     reset();
+  })();
+
+  // ---- Custom cursor ----
+  (function() {
+    var cursor = document.querySelector('.custom-cursor');
+    if (!cursor) return;
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
   })();
 
 })();
